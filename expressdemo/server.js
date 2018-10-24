@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+//数据库
 const mysql = require('mysql')
 var connection = mysql.createConnection({
     host: '39.108.100.163',
@@ -14,19 +15,19 @@ connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
     console.log('The solution is: ', rows[0].solution)
 })
 connection.end()
+
+//路由中间件
+var helloRouter =require('./routers/hello.js')
+let indexRouter =require('./routers/index')
+
+app.use('/hello',helloRouter)
+app.use('/',indexRouter)
 //中间件
 let myLogger = function (req, res, next) {
     console.log('LOGGEN')
     next()
 }
-let requestTime = function (req, res, next) {
-    req.requestTime = Date.now()
-    next()
-}
-//get路由
-app.get('/getHello', (req, res) => res.send('Hello World!'))
-//post请求
-app.post('/postHello', (req, res) => { res.send('Got a POST request') })
+
 
 //托管静态文件
 app.use(express.static('public'))
@@ -35,17 +36,8 @@ app.use('/static', express.static('public'))
 
 //调用中间件
 app.use(myLogger)
-app.use(requestTime);
-app.get('/engine', function (req, res, next) {
-    var responseText = 'Hello World!<br>'
-    responseText += '<small>Requested at: ' + req.requestTime + '</small>'
-    res.send(responseText);
-    next()
-}, function (req, res, next) {
-    // render a regular page
-    // res.render('regular')
-    console.log("adsfdsf")
-})
+
+
 
 //开启监听
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
