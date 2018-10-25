@@ -4,7 +4,8 @@ const bodyParser=require('body-parser')
 const router =experss.Router()
 
 router.get('/',(req,res,next)=>{
-    res.send("hello")
+     res.send("hello")
+
 })
 //get路由
 router.get('/:id', (req, res) => {
