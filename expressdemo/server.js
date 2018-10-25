@@ -29,15 +29,10 @@ let myLogger = function (req, res, next) {
 }
 
 
-//托管静态文件
-app.use(express.static('public'))
-//设置虚拟路径，访问localhost:3000/static/images/code.png
-app.use('/static', express.static('public'))
-
 //调用中间件
 app.use(myLogger)
 
 
 
 //开启监听
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(8081, () => console.log('Example app listening on port 8080!'))
