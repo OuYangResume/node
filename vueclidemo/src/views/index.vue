@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="(item,index) in userList" :key="index">
-            <div>{{item.name}}</div>
+            <div @click="test">{{item.name}}</div>
             <div>{{item.age}}</div>
         </div>
     </div>
@@ -24,10 +24,16 @@ export default {
         //测试express框架提供的后台服务
         initGetData() {
             var vm = this;
-            axios.get("http://localhost:8081/hello/userData").then(res => {
+            axios({
+                method: "get",
+                url: vm.localExpressUrl()+"/hello/userData"
+            }).then(res => {
                 console.log(res);
                 vm.userList = res.data;
             });
+        },
+        test() {
+            this.testCommin(); //公共方法
         }
     }
 };
