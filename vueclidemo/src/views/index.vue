@@ -1,6 +1,7 @@
 <template>
     <div class="index">
         <div class="index_left">
+            <welcome></welcome>
             <div v-for="(item,index) in userList" :key="index">
                 <div @click="test">{{item.name}}</div>
                 <div>{{item.age}}</div>
@@ -17,7 +18,11 @@
 
 <script>
 import axios from "axios";
+import welcome from "./welcome"
 export default {
+    components:{
+        welcome
+    },
     data() {
         return {
             name: "zhuye",
