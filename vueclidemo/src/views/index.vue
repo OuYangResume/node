@@ -1,8 +1,15 @@
 <template>
-    <div>
-        <div v-for="(item,index) in userList" :key="index">
-            <div @click="test">{{item.name}}</div>
-            <div>{{item.age}}</div>
+    <div class="index">
+        <div class="index_left">
+            <div v-for="(item,index) in userList" :key="index">
+                <div @click="test">{{item.name}}</div>
+                <div>{{item.age}}</div>
+            </div>
+            <router-link to="/index/welcome">欢迎页</router-link>
+            <router-link to="/index/lol">lol</router-link>
+        </div>
+        <div class="index_right">
+             <router-view></router-view>
         </div>
     </div>
 </template>
@@ -26,7 +33,7 @@ export default {
             var vm = this;
             axios({
                 method: "get",
-                url: vm.localExpressUrl()+"/hello/userData"
+                url: vm.localExpressUrl() + "/hello/userData"
             }).then(res => {
                 console.log(res);
                 vm.userList = res.data;
@@ -38,5 +45,20 @@ export default {
     }
 };
 </script>
+
+
+<style lang="scss" scoped>
+.index {
+    display: flex;
+    height: 100vh;
+    .index_left {
+        width: 20%;
+    }
+    .index_right {
+        width: 80%;
+    }
+}
+</style>
+
 
 

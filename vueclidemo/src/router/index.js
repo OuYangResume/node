@@ -14,7 +14,20 @@ export default new Router({
     {
       path: '/index',
       name: 'Index',
-      component: ()=>import("@/views/index")
+      component: ()=>import("@/views/index"),
+      //redirect: '/index/welcome',//默认进入子路由路径
+      children:[
+        {
+          path:'welcome',
+          name:'欢迎页',
+          component:()=>{"@/views/welcome"}
+        },
+        {
+          path:'lol',
+          name:'lol',
+          component:()=>{"@/views/views/index"}
+        },
+      ]
     }
   ]
 })

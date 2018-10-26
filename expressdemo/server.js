@@ -13,9 +13,9 @@ app.use('/user', userRouter)
 
 
 //托管静态文件
-router.use(express.static('public'))
+app.use(express.static('public'))
 //设置虚拟路径，访问localhost:3000/static/images/code.png
-router.use('/static', express.static('public'))
+app.use('/static', express.static('public'))
 
 //中间件
 let myLogger = function (req, res, next) {
