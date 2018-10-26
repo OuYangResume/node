@@ -2,11 +2,6 @@ const express =require('express')
 const router =express.Router()
 
 
-
-//托管静态文件
-router.use(express.static('public'))
-//设置虚拟路径，访问localhost:3000/static/images/code.png
-router.use('/static', express.static('public'))
 router.get('/',(req,res)=>{
     res.send("index")
 })
