@@ -4,12 +4,19 @@
   "description": "",
   "main": "idnex.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server",
+    "build": "npx webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.23.1",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19"
   }
 }

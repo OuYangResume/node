@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports={\n    name :'oouyang',\n    age:'23'\n}\n\n//# sourceURL=webpack:///./src/a.js?");
+eval("module.exports={\r\n    name :'oouyang',\r\n    age:'23'\r\n}\n\n//# sourceURL=webpack:///./src/a.js?");
 
 /***/ }),
 
@@ -104,7 +104,7 @@ eval("module.exports={\n    name :'oouyang',\n    age:'23'\n}\n\n//# sourceURL=w
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("let user = __webpack_require__(/*! ./a.js */ \"./src/a.js\")\nconsole.log(user.age);\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("let user = __webpack_require__(/*! ./a.js */ \"./src/a.js\")\r\nconsole.log(user.age);\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
