@@ -1,13 +1,9 @@
 <template>
     <div class="index">
         <div class="index_left">
-            <welcome></welcome>
-            <div v-for="(item,index) in userList" :key="index">
-                <div @click="test">{{item.name}}</div>
-                <div>{{item.age}}</div>
-            </div>
             <router-link to="/index/welcome">欢迎页</router-link>
             <router-link to="/index/lol">lol</router-link>
+            <router-link to="/index/map">map</router-link>
         </div>
         <div class="index_right">
              <router-view></router-view>
@@ -26,8 +22,12 @@ export default {
     data() {
         return {
             name: "zhuye",
-            userList: []
+            userList: [],
+            routerList:null
         };
+    },
+    created(){
+        this.getRouter();
     },
     mounted() {
         this.initGetData();
@@ -46,6 +46,9 @@ export default {
         },
         test() {
             this.testCommin(); //公共方法
+        },
+        getRouter(){
+            console.log($router)
         }
     }
 };
@@ -57,10 +60,11 @@ export default {
     display: flex;
     height: 100vh;
     .index_left {
-        width: 20%;
+        width: 10%;
+        background: #ddd;
     }
     .index_right {
-        width: 80%;
+        width: 90%;
     }
 }
 </style>
