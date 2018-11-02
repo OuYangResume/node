@@ -1,6 +1,7 @@
 let path=require("path");
 let HtmlWebpackPlugin =require("html-webpack-plugin")
 let CleanWebpackPlugin =require("clean-webpack-plugin")
+let webpack =require('webpack')
 
 module.exports ={
     //入口
@@ -21,12 +22,25 @@ module.exports ={
         port:3000,//端口号
         open:true,//自动打开
         compress:true,//服务器压缩
+        hot:true,//热部署
     },
     module://模块配置
     {
-
+        rules:[
+            {test:/\.css$/,use:[
+                {loader:'style-loader'},
+                {loader:'css-loader'},
+            ]},
+            {test:/\.less$/,use:[
+                {loader:'style-loader'},
+                {loader:'css-loader'},
+                {loader:'less-loader'}
+            ]}
+        ]
     },
     plugins:[
+        //热部署插件
+        new webpack.HotModuleReplacementPlugin(),
         //清空文件插件
         new CleanWebpackPlugin(['./build','./dist']),
         //打包html插件
