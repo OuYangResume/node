@@ -1,2 +1,7 @@
 let user = require('./a.js')
-console.log(user.age);
+document.getElementById("app").innerHTML=user.name
+
+if(module.hot){
+    module.hot.accpet("./a.js",function(){  
+    });
+}
