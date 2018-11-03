@@ -20,12 +20,26 @@ export default new Router({
         {
           path:'welcome',
           name:'欢迎页',
-          component:()=>import("@/views/welcome")
+          component:()=>import("@/views/welcome"),
+          meta: { title: 'leaflet', icon: 'example' },
         },
         {
           path:'lol',
           name:'lol',
           component:()=>import("@/views/lol/index")
+        },
+        {
+          path:'map',
+          name:'map',
+          component:()=>import("@/views/map/index"),
+          redirect:'/index/map/addWMS',
+          children:[
+            {
+              path:'addWMS',
+              name:'addwms',
+              component:()=>import("@/views/map/addWMS.vue")
+            }
+          ]
         },
       ]
     }

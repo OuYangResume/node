@@ -1,0 +1,1 @@
+console.log("webpack测试多个入口文件打包")

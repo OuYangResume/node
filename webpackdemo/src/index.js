@@ -1,7 +1,9 @@
 let user = require('./a.js')
-document.getElementById("app").innerHTML=user.name
+console.log(user.age);
+//import('./css/index.css')
+import('./css/index.less')
+document.getElementById('app').innerHTML=user.name;
 
 if(module.hot){
-    module.hot.accpet("./a.js",function(){  
-    });
+    module.hot.accept()
 }
