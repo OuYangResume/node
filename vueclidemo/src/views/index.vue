@@ -48,7 +48,8 @@ export default {
             this.testCommin(); //公共方法
         },
         getRouter(){
-            console.log($router)
+            console.log("router的属性")
+            console.log(this.$router)
         }
     }
 };
