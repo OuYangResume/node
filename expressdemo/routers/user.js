@@ -1,7 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const connection = require('../uilts/mysqlEngine') //数据库配置
+let bodyParser = require('body-parser') //表单请求
 
+
+var jsonParser = bodyParser.json()
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 //创建一个connection
 connection.connect(function (err) {
     if (err) {
@@ -20,6 +25,16 @@ router.get('/getAllUser', (req, res, next) => {
         res.send(rows);
     })
    // connection.end()
+})
+
+router.post('/insterUser',urlencodedParser,(req,res)=>{
+    console.dir(req.body);//取参数里面的值
+    res.send(req.body.name)
+})
+
+router.post('/insterJsonUser',jsonParser,(req,res)=>{
+    console.dir(req.body);
+    res.send(req.body.name)
 })
 
 module.exports= router
