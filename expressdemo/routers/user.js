@@ -41,7 +41,7 @@ router.post('/insterJsonUser',jsonParser,(req,res)=>{
 })
 //文件上传
 router.post('/upload',upload.single('avatar'),(req,res)=>{
-    //avatar 是文件的上传的name
+    //avatar 是文件的上传的name还需修改
     res.send("上传成功")
 })
 
