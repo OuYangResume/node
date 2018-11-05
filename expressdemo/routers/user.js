@@ -1,8 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const connection = require('../uilts/mysqlEngine') //数据库配置
-let bodyParser = require('body-parser') //表单请求
+let bodyParser = require('body-parser') //表单请求 
 
+var fs = require('fs');
+var multer  = require('multer') //文件上传
+var upload = multer({ dest: 'uploads/' }) //设置文件上传目录
 
 var jsonParser = bodyParser.json()
 // create application/x-www-form-urlencoded parser
@@ -35,6 +38,11 @@ router.post('/insterUser',urlencodedParser,(req,res)=>{
 router.post('/insterJsonUser',jsonParser,(req,res)=>{
     console.dir(req.body);
     res.send(req.body.name)
+})
+//文件上传
+router.post('/upload',upload.single('avatar'),(req,res)=>{
+    //avatar 是文件的上传的name
+    res.send("上传成功")
 })
 
 module.exports= router
