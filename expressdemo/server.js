@@ -6,10 +6,12 @@ const app = express()
 var helloRouter = require('./routers/hello.js')
 let indexRouter = require('./routers/index')
 let userRouter = require('./routers/user.js')
+let kittenRouter =require('./routers/kitten')
 
 app.use('/hello', helloRouter)
 app.use('/', indexRouter)
 app.use('/user', userRouter)
+//app.use('/kitten',kittenRouter)
 
 
 //托管静态文件

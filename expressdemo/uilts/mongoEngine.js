@@ -1,12 +1,5 @@
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb')
 
-MongoClient.connect('mongodb://39.108.100.163:27017/animals', function (err, client) {
-  if (err) throw err
+var connection=MongoClient.connect('mongodb://39.108.100.163:27017/test');
 
-  var db = client.db('animals')
-  
-  db.collection('mammals').find().toArray(function (err, result) {
-    if (err) throw err
-    console.log(result)
-  })
-})
+module.exports = connection;
