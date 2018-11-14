@@ -16,6 +16,9 @@ module.exports ={
         filename:"[name].[hash:8].js",
         //路径必须上绝对路径
         path:path.resolve("./build")
+
+
+        
     },
     devServer:{//开发服务器
         contentBase:"./build",
