@@ -4,7 +4,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+let demoRouter =new Router({
   routes: [
     {
       path: '/',
@@ -47,3 +47,14 @@ export default new Router({
     }
   ]
 })
+
+let photoRouter =new Router({
+  routes:[
+    {
+      path: '/',
+      name: 'HelloWorld',
+      component: () => import("@/views/photo/home")
+    },
+  ]
+})
+export default photoRouter
