@@ -1,13 +1,19 @@
 <template>
      <div class="part">
-        {{name}}
+        <head-page></head-page>
+        <main-page></main-page>
     </div>
    
    
 </template>
 
 <script>
+import headPage from "./components/headPage"
+import mainPage from "./components/mainPage"
 export default {
+    components: {
+        headPage,mainPage
+  },
   data() {
     return {
       name: "照片流动图"
@@ -17,14 +23,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.part {
-  background-color: rgb(186, 245, 233);
-  background-size: contain;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  margin: 0px auto;
-  padding: 0px;
+.part{
+    height: 100%;
 }
 </style>
 
