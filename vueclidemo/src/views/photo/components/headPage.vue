@@ -2,7 +2,7 @@
   <div class="headpage">
     <div class="main">
       <div class="title">
-        文字
+        来了就是深圳人
       </div>
       <div class="photo">
         <div>
@@ -31,7 +31,7 @@ export default {
       return{
         photoData:[
           {imagePath:"@/assets/images/dapeng1_20180915.jpg",imageDate:"二零一八年十二月二十九日"},
-          {imagePath:"@/assets/images/shixia_.jpg",imageDate:"二零一八年二月二日"},
+          {imagePath:"@/assets/images/shixia.jpg",imageDate:"二零一八年二月二日"},
           {imagePath:"@/assets/images/shixia.jpg",imageDate:"二零一八年二月二十二日"},
           {imagePath:"@/assets/images/shixia.jpg",imageDate:"二零一八年十一月二日"}
         ]
