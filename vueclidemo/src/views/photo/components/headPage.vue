@@ -5,37 +5,54 @@
         来了就是深圳人
       </div>
       <div class="photo">
-        <div>
-          <img src="@/assets/images/dapeng1_20180915.jpg" alt="" srcset="">
+       
+        <div v-for="(item,index) in photoData" :key="index">
+          <img :src="item.imagePath" alt="" srcset="">
+          <p>{{item.imageDate}}</p>
+        </div>
+        <!-- <div>
+          <img src="http://39.108.100.163:8084/dapeng1_20180915.jpg" alt="" srcset="">
           <p>二零一八年十二月二十九日</p>
         </div>
         <div>
-          <img src="@/assets/images/dapeng2_20180915.jpg" alt="" srcset="">
+          <img src="http://39.108.100.163:8084/dapeng2_20180915.jpg" alt="" srcset="">
           <p>二零一八年二月二日</p>
         </div>
         <div>
-          <img src="@/assets/images/dapeng3_20180915.jpg" alt="" srcset="">
+          <img src="http://39.108.100.163:8084/dapeng3_20180915.jpg" alt="" srcset="">
           <p>二零一八年二月二十二日</p>
         </div>
         <div>
-          <img src="@/assets/images/shixia_20181030.jpg" alt="" srcset="">
+          <img src="http://39.108.100.163:8084/shixia_20181030.jpg" alt="" srcset="">
           <p>二零一八年十一月二日</p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-    data(){
-      return{
-        photoData:[
-          {imagePath:"@/assets/images/dapeng1_20180915.jpg",imageDate:"二零一八年十二月二十九日"},
-          {imagePath:"@/assets/images/shixia.jpg",imageDate:"二零一八年二月二日"},
-          {imagePath:"@/assets/images/shixia.jpg",imageDate:"二零一八年二月二十二日"},
-          {imagePath:"@/assets/images/shixia.jpg",imageDate:"二零一八年十一月二日"}
-        ]
-      }
+    data() {
+        return {
+            photoData: [
+                {
+                    imagePath: "http://39.108.100.163:8084/dapeng1_20180915.jpg",
+                    imageDate: "二零一八年十二月二十九日"
+                },
+                {
+                    imagePath: "http://39.108.100.163:8084/dapeng2_20180915.jpg",
+                    imageDate: "二零一八年二月二日"
+                },
+                {
+                    imagePath: "http://39.108.100.163:8084/dapeng3_20180915.jpg",
+                    imageDate: "二零一八年二月二十二日"
+                },
+                {
+                    imagePath: "http://39.108.100.163:8084/shixia_20181030.jpg",
+                    imageDate: "二零一八年十一月二日"
+                }
+            ]
+        };
     }
 };
 </script>
@@ -71,8 +88,8 @@ export default {
                 transition: opacity 0.5s;
                 &:hover {
                     opacity: 0.6;
-                    p{
-                      color: red
+                    p {
+                        color: red;
                     }
                 }
                 img {
@@ -81,9 +98,9 @@ export default {
                     padding: 10px;
                     background-color: white;
                 }
-                p{
-                  margin-top: 10px;
-                  font-size: 16px;
+                p {
+                    margin-top: 10px;
+                    font-size: 16px;
                 }
             }
         }
