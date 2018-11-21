@@ -54,7 +54,7 @@ export default {};
             width: calc(33% - 60px);
             height: 40%;
             margin: 0 30px;
-            overflow: auto;
+            // overflow: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
