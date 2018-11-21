@@ -55,6 +55,11 @@ let photoRouter =new Router({
       name: 'HelloWorld',
       component: () => import("@/views/photo/home")
     },
+    {
+      path:'/upload',
+      name:'upload',
+      component:() =>import("@/views/photo/upload")
+    }
   ]
 })
 export default photoRouter

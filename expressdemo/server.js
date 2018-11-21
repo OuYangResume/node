@@ -28,6 +28,6 @@ let myLogger = function (req, res, next) {
 app.use(myLogger)
 
 
-
+const port =8082;
 //开启监听
-app.listen(8082, () => console.log('Example app listening on port 8080!'))
+app.listen(port, () => console.log('Example app listening on port'+port+' !'))
