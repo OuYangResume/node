@@ -3,7 +3,7 @@
     <div class="zhuti">主题</div>
     <div class="mian">
       <div class="windon">
-        <img src="@/assets/images/hzzx1_20180930.jpg" alt="">
+        <img src="http://39.108.100.163:8084/hzzx1_20180930.jpg" alt="">
         <h2>会展中心</h2>
         <hr>
         <p>2018/9/30</p>
