@@ -14,5 +14,8 @@ export default {
         Vue.prototype.localExpressUrl = function () {
             return sessionStorage.localExpressUrl;
         }
+        Vue.prototype.serviceExpressUrl = function () {
+            return sessionStorage.serviceExpressUrl;
+        }
     }
 }

@@ -91,26 +91,33 @@ var upload = multer({ storage: storage })
 /**
  * 文件上传
  */
-router.post('/upload', upload.single('avatar'), (req, res, next) => {
-    console.dir(req.file);
-    let filename = req.file.filename; //文件名
-    let mimetype = req.file.mimetype;// 文件类型
-    connection.query('SELECT * FROM upload WHERE filename = ?', [filename], function (error, results, fields) {
-        if (error) throw error;
-        //判断文件是否存在
-        if (results.length > 0) {
-            res.send(filename + "已存在,请修改文件名重新上传。")
-        } else {
-            let uploadtime = getNowFormatDate();
-            console.dir(uploadtime)
-            let file = { filename: filename, uploadtime: uploadtime, uploadname: "oouyang", mimetype: mimetype };
-            let sql = 'INSERT INTO upload SET ?';
-            var query = connection.query(sql, file, function (error, results, fields) {
-                if (error) throw error;
-                res.send(filename + "在" + uploadtime + "时上传成功")
-            });
-        }
-    })
+router.post('/upload', upload.any(), (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
+    console.dir(req);
+    if (req.files.length > 0) {
+        let filename = req.files[0].filename; //文件名
+        let mimetype = req.files[0].mimetype;// 文件类型
+        let uploadname = req.body.name; //上传人
+        connection.query('SELECT * FROM upload WHERE filename = ?', [filename], function (error, results, fields) {
+            if (error) throw error;
+            //判断文件是否存在
+            if (results.length > 0) {
+                res.send(filename + "已存在,请修改文件名重新上传。")
+            } else {
+                let uploadtime = getNowFormatDate();
+                console.dir(uploadtime)
+                let file = { filename: filename, uploadtime: uploadtime, uploadname: uploadname, mimetype: mimetype };
+                let sql = 'INSERT INTO upload SET ?';
+                var query = connection.query(sql, file, function (error, results, fields) {
+                    if (error) throw error;
+                    res.send(filename + "在" + uploadtime + "时上传成功")
+                });
+            }
+        })
+    }else{
+        res.send("请选择你想要上传的图片")
+    }
+
 
 })
 /**
@@ -132,4 +139,14 @@ function isuploadname(filename) {
     return query;
 }
 
+router.get('/getAllupload', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
+    let sql = 'SELECT * from upload'
+    connection.query(sql, function (err, rows, fields) {
+        if (err) throw err
+        //console.log('The solution is: ', rows[0]);
+        res.send(rows);
+    })
+    // connection.end()
+})
 module.exports = router

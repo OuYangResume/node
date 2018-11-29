@@ -47,7 +47,7 @@ export default {
       var vm = this;
       axios({
         method: "get",
-        url: vm.localExpressUrl() + "/hello/userData"
+        url: vm.serviceExpressUrl() + "/hello/userData"
       }).then(res => {
         console.log(res);
         vm.userList = res.data;
