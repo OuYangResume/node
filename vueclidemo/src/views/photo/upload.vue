@@ -112,7 +112,8 @@ export default {
       }).then(res => {
         console.log(res);
         vm.clearForm();
-        this.resultInfo = res.data;
+        vm.resultInfo = res.data;
+        vm.getAllfile();//更新列表
       });
     },
     /**

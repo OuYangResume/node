@@ -4,6 +4,7 @@ export default {
         axios.get("./static/config.json", {}).then(res => {
             console.log(res);
             sessionStorage.localExpressUrl = res.data.localExpressUrl;
+            sessionStorage.serviceExpressUrl = res.data.serviceExpressUrl;
             sessionStorage.author = res.data.author;
         });
 
