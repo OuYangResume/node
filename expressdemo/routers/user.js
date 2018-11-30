@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../uilts/mysqlEngine') //数据库配置
 let bodyParser = require('body-parser') //表单请求 
+let uploadSql=require('../uilts/mapper/UploadMapper')
 
 var fs = require('fs');
 var multer = require('multer') //文件上传
@@ -98,7 +99,7 @@ router.post('/upload', upload.any(), (req, res, next) => {
         let filename = req.files[0].filename; //文件名
         let mimetype = req.files[0].mimetype;// 文件类型
         let uploadname = req.body.name; //上传人
-        connection.query('SELECT * FROM upload WHERE filename = ?', [filename], function (error, results, fields) {
+        connection.query(uploadSql.getUploadByfilename, [filename], function (error, results, fields) {
             if (error) throw error;
             //判断文件是否存在
             if (results.length > 0) {
@@ -107,8 +108,7 @@ router.post('/upload', upload.any(), (req, res, next) => {
                 let uploadtime = getNowFormatDate();
                 console.dir(uploadtime)
                 let file = { filename: filename, uploadtime: uploadtime, uploadname: uploadname, mimetype: mimetype };
-                let sql = 'INSERT INTO upload SET ?';
-                var query = connection.query(sql, file, function (error, results, fields) {
+                var query = connection.query(uploadSql.insertUpload, file, function (error, results, fields) {
                     if (error) throw error;
                     res.send(filename + "在" + uploadtime + "时上传成功")
                 });
@@ -125,7 +125,7 @@ router.post('/upload', upload.any(), (req, res, next) => {
  * @param {*} filename 
  */
 function isuploadname(filename) {
-    connection.query('SELECT * FROM upload WHERE filename = ?', [filename], function (error, results, fields) {
+    connection.query(uploadSql.getUploadByfilename, [filename], function (error, results, fields) {
         if (error) throw error;
         let query;
         if (results.length > 0) {
@@ -138,14 +138,29 @@ function isuploadname(filename) {
     console.dir(query)
     return query;
 }
-
+/**
+ * 获取所有图片，并分页。
+ */
 router.get('/getAllupload', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
-    let sql = 'SELECT * from upload'
-    connection.query(sql, function (err, rows, fields) {
+    console.dir(req)
+    // 获取前台页面传过来的参数
+    var param = req.query || req.params;
+    var pageNum = parseInt(param.pageNum || 1);// 页码
+    var end = parseInt(param.pageSize || 10); // 默认页数
+    var start = (pageNum - 1) * end;
+   
+    connection.query(uploadSql.getAllUpload,[start,end], function (err, rows, fields) {
         if (err) throw err
         //console.log('The solution is: ', rows[0]);
         res.send(rows);
+    })
+
+    var sum;
+    connection.query(uploadSql.getSumUpload,function(err,result){
+        if(err) throw err
+        console.dir(result);
+        sum=result.sum;
     })
     // connection.end()
 })
