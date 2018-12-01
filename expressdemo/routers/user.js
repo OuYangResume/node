@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../uilts/mysqlEngine') //数据库配置
 let bodyParser = require('body-parser') //表单请求 
-let uploadSql=require('../uilts/mapper/UploadMapper')
+let uploadSql = require('../uilts/mapper/UploadMapper')
 
 var fs = require('fs');
 var multer = require('multer') //文件上传
@@ -114,7 +114,7 @@ router.post('/upload', upload.any(), (req, res, next) => {
                 });
             }
         })
-    }else{
+    } else {
         res.send("请选择你想要上传的图片")
     }
 
@@ -143,25 +143,39 @@ function isuploadname(filename) {
  */
 router.get('/getAllupload', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
-    console.dir(req)
-    // 获取前台页面传过来的参数
-    var param = req.query || req.params;
-    var pageNum = parseInt(param.pageNum || 1);// 页码
-    var end = parseInt(param.pageSize || 10); // 默认页数
-    var start = (pageNum - 1) * end;
-   
-    connection.query(uploadSql.getAllUpload,[start,end], function (err, rows, fields) {
+    //console.dir(req)
+    connection.query(uploadSql.getSumUpload, (err, result) => {
         if (err) throw err
-        //console.log('The solution is: ', rows[0]);
-        res.send(rows);
+        var sum = result[0].sum;
+        console.dir(result)
+        console.dir(sum);
+        // 获取前台页面传过来的参数
+        var param = req.query || req.params;
+        var pageNum = parseInt(param.pageNum || 1);// 页码
+        var end = parseInt(param.pageSize || 10); // 默认页数
+        var start = (pageNum - 1) * end;
+        connection.query(uploadSql.getAllUpload, [start, end], function (err, rows, fields) {
+            if (err) throw err
+            var uploadList=rows;
+            console.dir(sum);
+            var uploadData={
+                "uploadList":uploadList,
+                "total":sum
+            }
+            res.send(uploadData);
+        })
     })
 
-    var sum;
-    connection.query(uploadSql.getSumUpload,function(err,result){
-        if(err) throw err
-        console.dir(result);
-        sum=result.sum;
-    })
     // connection.end()
 })
+/**
+ *  获取图片总数
+ */
+function getUploadSum() {
+    connection.query(uploadSql.getSumUpload, (err, result) => {
+        if (err) throw err
+        console.dir(result);
+        return result.sum;
+    })
+}
 module.exports = router
