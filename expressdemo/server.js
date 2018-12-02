@@ -7,10 +7,12 @@ var helloRouter = require('./routers/hello.js')
 let indexRouter = require('./routers/index')
 let userRouter = require('./routers/user.js')
 let kittenRouter =require('./routers/kitten')
+let uploadRouter =require('./routers/upload.js')
 
 app.use('/hello', helloRouter)
 app.use('/', indexRouter)
 app.use('/user', userRouter)
+app.use('/upload',uploadRouter);
 //app.use('/kitten',kittenRouter)
 
 

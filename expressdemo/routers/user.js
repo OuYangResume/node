@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const connection = require('../uilts/mysqlEngine') //数据库配置
 let bodyParser = require('body-parser') //表单请求 
-let uploadSql = require('../uilts/mapper/UploadMapper')
+let uploadSql = require('../dao/UploadMapper')
 
 var fs = require('fs');
 var multer = require('multer') //文件上传
@@ -154,7 +154,7 @@ router.get('/getAllupload', (req, res, next) => {
         var pageNum = parseInt(param.pageNum || 1);// 页码
         var end = parseInt(param.pageSize || 10); // 默认页数
         var start = (pageNum - 1) * end;
-        connection.query(uploadSql.getAllUpload, [start, end], function (err, rows, fields) {
+        connection.query(uploadSql.getUploadByLimit, [start, end], function (err, rows, fields) {
             if (err) throw err
             var uploadList=rows;
             console.dir(sum);
