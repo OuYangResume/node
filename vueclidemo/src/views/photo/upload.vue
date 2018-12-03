@@ -106,7 +106,7 @@ export default {
 
       axios({
         method: "post",
-        url: vm.serviceExpressUrl()+"/user/upload",
+        url: vm.localExpressUrl()+"/upload/insertUpload",
         headers: { "Content-Type": "multipart/form-data" },
         data: param
       }).then(res => {
@@ -123,10 +123,10 @@ export default {
       var vm = this;
       axios({
         method: "get",
-        url: vm.serviceExpressUrl()+"/user/getAllupload"
+        url: vm.localExpressUrl()+"/upload/getAllupload"
       }).then(res => {
         console.log(res);
-        this.uploadTableData = res.data;
+        this.uploadTableData = res.data.uploadList;
       });
     }
   }
