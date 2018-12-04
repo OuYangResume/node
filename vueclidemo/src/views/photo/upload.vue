@@ -14,7 +14,6 @@
         v-model="uploadfilename"
       >
       <button @click="uploadfile($event)">提交</button>
-      <h3>{{resultInfo}}</h3>
     </div>
     <div>
       <template>
@@ -61,12 +60,14 @@
 
 <script>
 import axios from "axios";
+import totas from "@/components/totas";
 export default {
+  components: { totas },
   data() {
     return {
+      content:"adfs",
       file: "",
       uploadfilename: "",
-      resultInfo: "", //上传结果提示
       pageData: {
         //分页数据
         total: 0, //总数
@@ -121,13 +122,17 @@ export default {
 
       axios({
         method: "post",
-        url: vm.localExpressUrl() + "/upload/insertUpload",
+        url: vm.serviceExpressUrl() + "/upload/insertUpload",
         headers: { "Content-Type": "multipart/form-data" },
         data: param
       }).then(res => {
         console.log(res);
         vm.clearForm();
-        vm.resultInfo = res.data;
+        vm.$toast({
+            type:'error',
+            content: res.data,
+            autoClose: true
+          })
         vm.getfileList(); //更新列表
       });
     },
@@ -138,7 +143,7 @@ export default {
       var vm = this;
       axios({
         method: "get",
-        url: vm.localExpressUrl() + "/upload/getAllupload"
+        url: vm.serviceExpressUrl() + "/upload/getAllupload"
       }).then(res => {
         console.log(res);
         this.pageData.uploadTableData = res.data.uploadList;
@@ -151,7 +156,7 @@ export default {
       var vm = this;
       axios({
         method: "get",
-        url: vm.localExpressUrl() + "/upload/getUploadByLimit",
+        url: vm.serviceExpressUrl() + "/upload/getUploadByLimit",
         params: {
           pageNum: vm.pageData.currentPage,
           pageSize: vm.pageData.pageSize
@@ -159,7 +164,7 @@ export default {
       }).then(res => {
         console.log(res);
         vm.pageData.uploadTableData = res.data.uploadList;
-        vm.pageData.total=res.data.total;
+        vm.pageData.total = res.data.total;
       });
     },
     /**
@@ -167,16 +172,16 @@ export default {
      */
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
-      this.pageData.pageSize=val;
-      this.getfileList()
+      this.pageData.pageSize = val;
+      this.getfileList();
     },
     /**
      * 改变页码
      */
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-      this.pageData.currentPage =val;
-      this.getfileList()
+      this.pageData.currentPage = val;
+      this.getfileList();
     }
   }
 };

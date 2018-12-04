@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "element-ui": "^2.4.9",
     "maptalks": "^0.42.0",
+    "material-design-icons": "^3.0.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
