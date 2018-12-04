@@ -65,7 +65,7 @@ export default {
   components: { totas },
   data() {
     return {
-      content:"adfs",
+      content: "adfs",
       file: "",
       uploadfilename: "",
       pageData: {
@@ -128,11 +128,31 @@ export default {
       }).then(res => {
         console.log(res);
         vm.clearForm();
-        vm.$toast({
-            type:'error',
-            content: res.data,
-            autoClose: true
-          })
+
+        switch (res.data.code) {
+          case 200:
+            vm.$toast({
+              type: "info",
+              content: res.data.msg,
+              autoClose: true
+            });
+            break;
+          case 201:
+            vm.$toast({
+              type: "warn",
+              content: res.data.msg,
+              autoClose: true
+            });
+            break;
+          case 202:
+            vm.$toast({
+              type: "error",
+              content: res.data.msg,
+              autoClose: true
+            });
+            break;
+        }
+
         vm.getfileList(); //更新列表
       });
     },

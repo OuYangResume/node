@@ -1,6 +1,9 @@
 {
     "author":"oouyang",
     "version":"1.0.0.1",
-    "localExpressUrl":"http://localhost:8082",
-    "serviceExpressUrl":"http://39.108.100.163:8082"
+    "serviceExpressUrl":"http://39.108.100.163:8082",
+    "expressService":{
+        "localExpressUrl":"http://localhost:8082",
+        "39.108.100.63":"http://39.108.100.163:8082"
+    }
 }
