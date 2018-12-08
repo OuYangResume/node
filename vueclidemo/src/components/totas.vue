@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     horizontalClass() {
-      let position = this.position;
+      //let position = this.position;
       return this.position.includes("right") ? "right" : "left";
     },
     positionStyle() {

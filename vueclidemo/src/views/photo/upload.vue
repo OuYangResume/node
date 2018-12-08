@@ -55,6 +55,8 @@
       :total="pageData.total">
     </el-pagination>
     </div>
+    <!-- <totas :content="content1"></totas>
+     <totas :content="content1" :position="sd" :type="ty"></totas> -->
   </div>
 </template>
 
@@ -65,7 +67,9 @@ export default {
   components: { totas },
   data() {
     return {
-      content: "adfs",
+      ty:"success",
+      sd:"top-left",
+      content1: "adfs",
       file: "",
       uploadfilename: "",
       pageData: {
