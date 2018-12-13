@@ -53,7 +53,7 @@ let photoRouter =new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: () => import("@/views/photo/home")
+      component: () => import("@/views/welcome")
     },
     {
       path:'/upload',
