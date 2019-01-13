@@ -40,15 +40,16 @@ function updateVerticalOffset(removeInstance) {
 /* 构造单个toast */
 function generateInstance(options) {
     let instance = new ToastConstructor({
+        //propsData只用于 new 创建的实例中,传递 props.
         propsData: options
-    }).$mount(document.createElement('div'))
+    }).$mount(document.createElement('div')) //// 创建 ToastConstructor 实例，并挂载到一个元素上。
     if (typeof options.onClose === 'function') instance.onClose = options.onClose
     //计算instance verticalOffset
     let id = 'toast_' + initIndex++
     instance.id = id
     instance.verticalOffset = initVerticalOffset(instance.position)
 
-    //监听组件close
+    //监听组件close,监听一个自定义事件，但是只触发一次，在第一次触发之后移除监听器
     instance.$once('toastClose', function () {
         const curInstance = this
         updateVerticalOffset(curInstance)
