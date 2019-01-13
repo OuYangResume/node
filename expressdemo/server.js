@@ -13,7 +13,7 @@ app.use('/hello', helloRouter)
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/upload',uploadRouter);
-//app.use('/kitten',kittenRouter)
+app.use('/kitten',kittenRouter)
 
 
 //托管静态文件

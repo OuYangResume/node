@@ -1,11 +1,23 @@
 const experss =require('express');
 const bodyParser=require('body-parser')
 
+//检测是否支持加密
+let crypto;
+try {
+  crypto = require('crypto');
+} catch (err) {
+  console.log('不支持 crypto!');
+}
+
 const router =experss.Router()
 
 router.get('/',(req,res,next)=>{
-     res.send("hello")
-
+    let secret ="hello";
+    const hash = crypto.createHmac('sha256', secret)
+                   .update('I love cupcakes')
+                   .digest('hex');
+    console.dir(hash);
+     res.send(secret+"对应的加密:"+hash)
 })
 
 router.get('/userData',(req,res,next)=>{
