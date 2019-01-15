@@ -10,18 +10,19 @@ const assert = require('assert');
 // Connection URL
 //连接数据库
 //假如数据库不存在，会自动创建一个数据库
-var url = 'mongodb://127.0.0.1:27017/test';
+var url1 = 'mongodb://127.0.0.1:27017/test';
+let url = 'mongodb://39.108.100.163:27017/test';
 
 MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
     assert.strictEqual(null, err);
     console.dir("Connection mongodb successfully to server");
-    let data =[
+    let data1 =[
         { name: "AS" }, { a: 2 }, { a: 3 }
     ]
-    //let data=require("./../public/location.json")
-    // insertDocuments(client, data,(result) =>{
-    //     console.log(result)
-    // });
+    let data=require("./../public/location.json")
+    insertDocuments(client, data,(result) =>{
+        console.log(result)
+    });
 });
 
 /**
