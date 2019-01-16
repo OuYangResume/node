@@ -23,5 +23,14 @@ const router2 ={
     }
   ]
 }
+const router3 ={
+  routes:[
+    {
+      path:"/",
+      name:"resume",
+      component:() =>import("@/views/home1/index")
+    }
+  ]
+}
 
-export default new Router(router2)
+export default new Router(router3)
