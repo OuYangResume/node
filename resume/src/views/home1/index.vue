@@ -1,19 +1,19 @@
 <template>
-  <full-page ref="fullpage" :options="options" id="fullpage">
+  <div id="fullpage">
     <div class="section">
       <pageone></pageone>
     </div>
-    <div class="section">Second 2section ...</div>
-    <div class="section">Second 3section ...</div>
-    <div class="section">Second 4section ...</div>
-    <div class="section">Second 5section ...</div>
-  </full-page>
+    <div class="section">Some section</div>
+    <div class="section">Some section</div>
+    <div class="section">Some section</div>
+  </div>
 </template>
 
 <script>
-import pageone from './pages/pageone'
+import pageone from "./pages/pageone";
+import fullpage from "fullpage.js";
 export default {
-  components:{
+  components: {
     pageone
   },
   data() {
@@ -24,6 +24,21 @@ export default {
         sectionsColor: ["#41b883", "#ff5f45", "#0798ec", "#41b883"]
       }
     };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      new fullpage("#fullpage", {
+        //options here
+        licenseKey:"",
+        autoScrolling: true,
+        scrollHorizontally: true,
+        sectionsColor: ["#41b883", "#ff5f45", "#0798ec", "#41b883"]
+      });
+
+    }
   }
 };
 </script>

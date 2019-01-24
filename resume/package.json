@@ -12,10 +12,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "fullpage.js": "^3.0.4",
     "html2canvas": "^1.0.0-alpha.12",
     "jspdf": "^1.5.3",
     "vue": "^2.5.2",
-    "vue-fullpage.js": "^0.1.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
@@ -33,11 +33,13 @@
     "chromedriver": "^2.27.2",
     "copy-webpack-plugin": "^4.0.1",
     "cross-spawn": "^5.0.1",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
@@ -50,6 +52,7 @@
     "selenium-server": "^3.0.1",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",

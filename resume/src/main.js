@@ -3,10 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Fullpage from 'vue-fullpage.js'
-import 'fullpage.js/dist/fullpage.css'
 
-Vue.use(Fullpage)
 
 Vue.config.productionTip = false
 
