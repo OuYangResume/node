@@ -17,6 +17,7 @@
     "mongoose": "^5.3.11",
     "multer": "^1.4.1",
     "mysql": "^2.16.0",
-    "routermove": "^1.0.4"
+    "routermove": "^1.0.4",
+    "ws": "^6.1.3"
   }
 }
