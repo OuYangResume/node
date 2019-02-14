@@ -7,7 +7,7 @@ function question(choose:Choose):void{
     console.log("你的选择是"+choose);
 }
 
-class Person{
+class Person1{
     name:string;//姓名
     age:number;//年龄
     labels:Array<string>;//标签组
