@@ -20,7 +20,7 @@ class SecurityDoor extends Door implements Alarm {
 //开灯的接口
 interface Light {
     lightOn(): void;
-    lightOff();
+    lightOff(): void;
     ab(a: number, b: number): number
 }
 //车----实现多个接口
@@ -59,4 +59,4 @@ class GenericNumber<T> {
 
 let myGenericNumber = new GenericNumber<number>();
 myGenericNumber.zeroValue = 0;
-myGenericNumber.add = function(x, y) { return x + y; };
+myGenericNumber.add = function (x, y) { return x + y; };
