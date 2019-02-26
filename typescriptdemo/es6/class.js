@@ -15,7 +15,7 @@ class Animal {
 let a = new Animal('Jack');
 console.log(a.sayHi()); // My name is Jack
 
-
+export default Animal
 
 
 //类的继承,子类中使用 super 关键字来调用父类的构造函数和方法
