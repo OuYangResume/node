@@ -33,4 +33,4 @@ const router3 ={
   ]
 }
 
-export default new Router(router3)
+export default new Router(router2)
