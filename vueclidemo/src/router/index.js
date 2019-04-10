@@ -5,6 +5,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 let demoRouter =new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -67,4 +68,4 @@ let photoRouter =new Router({
     }
   ]
 })
-export default photoRouter
+export default demoRouter
