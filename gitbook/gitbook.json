@@ -1,0 +1,80 @@
+{
+    "gitbook": "3.x.x",
+    "title": "Time Note",
+    "author": "oouyang",
+    "description": "oouayng的流水账",
+    "language": "zh-hans",
+    "structure": {
+        "readme": "readme.md",
+        "summary": "summary.md"
+    },
+    "links": {
+        "sidebar": {
+            "我的狗窝": "https://ouyangresume.github.io/"
+        }
+    },
+    "plugins": [
+        "-lunr",
+        "-search",
+        "search-pro",
+        "baidu",
+        "katex",
+        "github-buttons",
+        "github",
+        "include-codeblock",
+        "ace",
+        "chapter-fold"
+    ],
+    "pluginsConfig": {
+        "theme-default": {
+            "showLevel": true
+        },
+        "baidu": {
+            "token": "598c9c941360724a65331e7d9a66c9b6"
+        },
+        "search": {
+            "maxIndexSize": 10000
+        },
+        "github-buttons": {
+            "buttons": [
+                {
+                    "user": "openlayer-tutorial-group",
+                    "repo": "ol5-primer",
+                    "type": "star",
+                    "size": "small",
+                    "count": true
+                },
+                {
+                    "user": "openlayer-tutorial-group",
+                    "repo": "ol5-primer",
+                    "type": "watch",
+                    "size": "small",
+                    "count": true
+                }
+            ]
+        },
+        "github": {
+            "url": ""
+        },
+        "include-codeblock": {
+            "template": "acefull",
+            "unindent": true,
+            "theme": "monokai"
+        },
+        "sharing": {
+            "facebook": false,
+            "twitter": true,
+            "google": false,
+            "weibo": true,
+            "instapaper": false,
+            "vk": false,
+            "all": [
+                "weibo",
+                "facebook",
+                "google",
+                "twitter"
+            ]
+        },
+        "chapter-fold": {}
+    }
+}
