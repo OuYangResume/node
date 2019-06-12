@@ -68,4 +68,4 @@ let photoRouter =new Router({
     }
   ]
 })
-export default demoRouter
+export default photoRouter

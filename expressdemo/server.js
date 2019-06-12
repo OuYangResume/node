@@ -12,17 +12,20 @@ var helloRouter = require('./routers/hello.js')
 let indexRouter = require('./routers/index')
 let userRouter = require('./routers/user.js')
 //monogdb使用
-let kittenRouter =require('./routers/kitten')
+//let kittenRouter =require('./routers/kitten')
 //文件上传功能
 let uploadRouter =require('./routers/upload.js')
 //邮件功能
-let mailerRouter =require('./routers/mailer')
+//let mailerRouter =require('./routers/mailer')
+//tile38 地理空间数据库和地理围栏服务器
+let tile38 =require('./routers/tile38')
 
 app.use('/hello', helloRouter)
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/upload',uploadRouter);
-app.use('/kitten',kittenRouter)
+//app.use('/kitten',kittenRouter)
+app.use('/tile38',tile38);
 
 
 
@@ -43,3 +46,4 @@ app.use(myLogger)
 const port =8082;
 //开启监听
 app.listen(port, () => console.log('Example app listening on port'+port+' !'))
+
