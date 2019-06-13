@@ -12,25 +12,36 @@ client.set('fleet', 'truck5', [33.5123, -112.2693], { value: 10, othervalue: 20 
 
 router.get('/getFleet', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
-    let result1 = getFleet.getTruck1();
-
-    console.log("adsfsda", result1)
-    let query = client.scanQuery('fleet').objects();
-    query.execute().then(results => {
-        // console.dir(results);  // results is an object.
-        let resultObject = {
-            "result1": result1,
-            "result2": results
-        }
-        res.send(resultObject);
-
-    }).catch(err => {
-        console.error("something went wrong! " + err);
+    getFleet.initFleet().then(resFleetObject => {
+        res.send(resFleetObject);
     });
-
 })
 
+router.get('/getIntersectsQuery', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
+    getFleet.getIntersectsQuery().then(resFleetObject => {
+        res.send(resFleetObject);
+    });
+})
+
+
+
 let getFleet = {
+    /**
+     * @description: 组装数据的入口。
+     * @param {type} 
+     * @return: 
+     */
+    async initFleet() {
+        let result1 = await this.getTruck1();
+        let result2 = await this.getTruck2();
+        let result3 = await this.getScanQuery();
+        return {
+            "result1": result1,
+            "result2": result2,
+            "result3": result3
+        }
+    },
     /**
      * @description: 查询fleet
      * @param {type} 
@@ -51,14 +62,47 @@ let getFleet = {
      * @return: 
      */
     getTruck2() {
-        client.get('fleet', 'truck1', { type: 'POINT', withfields: true }).then(data => {
-            console.log(`truck2 is at ${data.point.lat},${data.point.lon}`);
-            console.dir(data.fields);
-            res.send(data);
+        return client.get('fleet', 'truck1', { type: 'POINT', withfields: true }).then(data => {
+            return data;
+        });
+    },
+
+    /**
+     * @description: 查询所有数据。。scanQuery方法
+     * @param {type} 
+     * @return: 
+     */
+    getScanQuery() {
+        let query = client.scanQuery('fleet').objects();
+        return query.execute().then(results => {
+            // console.dir(results);  // results is an object.
+            return results;
+        }).catch(err => {
+            console.error("something went wrong! " + err);
+        });
+    },
+    /**
+     * @description: 带地理围栏的查询
+     * // basic query that uses bounds 基础的范围查询
+    client.intersectsQuery('fleet').bounds(33.462, -112.268, 33.491 - 112.245)
+    // intersect with a circle of 1000 meter radius 在点1000米范围内查询
+    client.intersectsQuery('fleet').circle(33.462, -112.268, 1000)
+    // using cursor and limit for pagination 限制分页
+    client.intersectsQuery('fleet').cursor(100).limit(50).bounds(33.462, -112.268, 33.491 - 112.245)
+    // create a fence that triggeres when entering a polygon //自定义polygon查询
+    let polygon = { "type": "Polygon", "coordinates": [[[-111.9787, 33.4411], [-111.8902, 33.4377], [-111.8950, 33.2892], [-111.9739, 33.2932], [-111.9787, 33.4411]]] };
+    client.intersectsQuery('fleet').detect('enter', 'exit').object(polygon)
+     * @param {type} 
+     * @return: 
+     */
+    getIntersectsQuery() {
+        let query = client.intersectsQuery('fleet').circle(33.5123, -112.2693, 1000)
+        return query.execute().then(results => {
+            return results  // results is an object.
+        }).catch(err => {
+            console.error("something went wrong! " + err);
         });
     }
-
-
 }
 
 
