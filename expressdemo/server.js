@@ -1,7 +1,9 @@
 const express = require('express')
 const app = express()
 
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());//数据JSON类型
+app.use(bodyParser.urlencoded({ extended: false }));//解析post请求数据
 /**
  * @description: 路由中间件
  * @param {type} 
