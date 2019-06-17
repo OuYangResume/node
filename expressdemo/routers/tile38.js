@@ -19,6 +19,29 @@ router.get('/getIntersectsQuery', (req, res, next) => {
     });
 })
 
+/**
+ * @description: 获取key下的所有数据
+ * @param {type} 
+ * @return: 
+ */
+router.get('/getAllByKey',(req,res,next)=>{
+    res.header('Access-Control-Allow-Origin', '*') //解决跨域问题
+   // console.log(req);
+    var param = req.query || req.params;
+    console.log(req.param.key);
+    if (param.key === undefined){
+        res.send('请输入您想要查询的key')
+    }
+    else{
+        let key =param.key;
+        getFleet.getScanQuery(key).then(data=>{
+            console.log(data);
+            res.send(data);
+        })
+    }
+   // res.send('200')
+})
+
 router.use(bodyParser.urlencoded({ extended: false })); //注册body
 router.use(bodyParser.json());//数据JSON类型
 router.post('/insertFleet', (req, res, next) => {
