@@ -78,20 +78,34 @@
     </div>
     <div class="welcome-footer">
       <div class="welcome-footer-left">
-          <!-- <piechart></piechart> -->
+
+          <input type="text" v-model="name">
+          <ul v-for="(item,index) in newObj.ary" :key="index">
+            <li>{{item}}</li>
+          </ul>
+           <piechart :msg='newObj'></piechart>
       </div>
-      <div class="welcome-footer-right">右</div>
+      <div class="welcome-footer-right">
+          {{total}}
+          <rightchart @jia='handClick'  @jian1='handClick'></rightchart>  
+      </div>
     </div>
   </div>
 </template>
 <script>
-// import piechart from "./piechart"
+ import piechart from "./piechart"
+ import rightchart from './rightchart'
 export default {
     components:{
-        //piechart
+        piechart,rightchart
     },
     data(){
         return{
+          total:0,
+          newObj:{
+            name:'',
+            ary:[1,4,3,43,76]
+          },
             headData:[
                 {
                     imgUrl:"../../../assets/images/welcome/icon_ajzs.png",
@@ -158,6 +172,11 @@ export default {
         }
     },
     methods:{
+
+
+      handClick(val){
+        this.total=val;
+      },
         /**
          * 将数字改为 三位数逗号隔开的格式
          * @param n number
