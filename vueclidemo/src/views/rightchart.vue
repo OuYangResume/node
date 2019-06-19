@@ -15,8 +15,10 @@ export default {
     },
     methods:{
         add(){
+            let a;
             this.count+=1;
-            this.$emit('jia',this.count);
+            this.$emit('jia',this.count); 
+
         },
         jian(){
             this.count -=1;
