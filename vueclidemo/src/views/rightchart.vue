@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import bus from './eventBus.js'
 export default {
     data(){
         return{
@@ -17,12 +18,15 @@ export default {
         add(){
             let a;
             this.count+=1;
-            this.$emit('jia',this.count); 
-
+           // this.$emit('jia',this.count); 
+           bus.$emit('addCount',this.count);
         },
         jian(){
             this.count -=1;
             this.$emit('jian1',this.count)
+        },
+        addTotal(){
+            alert(1);
         }
     }
 }

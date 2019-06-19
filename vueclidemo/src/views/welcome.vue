@@ -79,15 +79,16 @@
     <div class="welcome-footer">
       <div class="welcome-footer-left">
 
-          <input type="text" v-model="name">
+          <input type="text" v-model="newObj.name">
           <ul v-for="(item,index) in newObj.ary" :key="index">
             <li>{{item}}</li>
           </ul>
            <piechart :msg='newObj'></piechart>
+           <button @click="addTotal">alert</button>
       </div>
       <div class="welcome-footer-right">
           {{total}}
-          <rightchart @jia='handClick'  @jian1='handClick'></rightchart>  
+          <rightchart ref="right" @jia='handClick'  @jian1='handClick'></rightchart>  
       </div>
     </div>
   </div>
@@ -172,7 +173,11 @@ export default {
         }
     },
     methods:{
+      addTotal(){
+        console.log(this.$ref)
+        this.$refs.right.addTotal();
 
+      },
 
       handClick(val){
         this.total=val;
