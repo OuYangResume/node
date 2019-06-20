@@ -40,7 +40,7 @@ Observer.prototype = {
     }
 };
 
-function observe(value, vm) {
+function observe(value) {
     if (!value || typeof value !== 'object') {
         return;
     }

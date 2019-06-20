@@ -1,6 +1,5 @@
 function SelfVue (options) {
     var self = this;
-    this.vm = this;
     this.data = options.data;
 
     Object.keys(this.data).forEach(function(key) {
@@ -8,7 +7,7 @@ function SelfVue (options) {
     });
 
     observe(this.data);
-    new Compile(options.el, this.vm);
+    new Compile(options.el, this);
     return this;
 }
 
