@@ -88,7 +88,16 @@
       </div>
       <div class="welcome-footer-right">
           {{total}}
-          <rightchart ref="right" @jia='handClick'  @jian1='handClick'></rightchart>  
+          <rightchart ref="right" :headData='headData' @jia='handClick'  @jian1='handClick'>
+            slot分发的内容。。。。
+            <p slot="head">带name的slot</p>
+           <p>测试匿名的slot的位置</p>
+
+
+            <template slot="book" scope="props">
+                <li>{{props}}</li>
+            </template>
+          </rightchart>  
       </div>
     </div>
   </div>
