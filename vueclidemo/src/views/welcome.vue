@@ -94,7 +94,7 @@
            <p>测试匿名的slot的位置</p>
 
 
-            <template slot="book" scope="props">
+            <template slot="book" slot-scope="props">
                 <li>{{props}}</li>
             </template>
           </rightchart>  
