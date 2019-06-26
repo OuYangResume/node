@@ -23,8 +23,6 @@ if [ "$isContinue" != 'y' ];then
     exit
 fi
 
-
-
 # git提交 =======
 git add .
 read -p $'\n\n请输入您的commit信息： ' commitInfo
