@@ -64,7 +64,7 @@ case $aNum in
         read -p $'\n\n请输入您要查看的容器名称:' containerName1
         docker inspect $containerName1
         ;;
-    *)  echo '你没有输入 1 到 4 之间的数字'
+    *)  echo '你没有输入 1 到 5 之间的数字'
     ;;
 esac
 
