@@ -1,5 +1,5 @@
 var path = require('path');
-var appPath = path.resolve(__dirname, './src/index.js');
+var appPath = path.resolve(__dirname, './src/threeTwo.js');
 var buildPath = path.resolve(__dirname, './build');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -10,6 +10,15 @@ module.exports = {
         filename: "bundle.js",//输出的文件名称
     },
     module: {
+        rules: [
+            {
+                //url-loader的主要功能是：将源文件转换成DataUrl(声明文件mimetype的base64编码)
+                //小于limit字节，以 base64 的方式引用，大于limit就交给file-loader处理了
+                //file-loader的主要功能是：把源文件迁移到指定的目录（可以简单理解为从源文件目录迁移到build目录
+                test: /\.(jpg|png|gif)$/,
+                loader: 'url-loader?limit=8192&name=asset/[hash:8].[name].[ext]'
+            }
+        ]
     },
     //以下是服务环境配置
     devServer: {
@@ -21,12 +30,12 @@ module.exports = {
         contentBase: path.resolve(__dirname),//用来指定index.html所在目录
         publicPath: '/build/',//用来指定编译后的bundle.js的目录
         openPage: "build/index.html",//指定打开的页面
-        hot:true,//热部署
+        hot: true,//热部署
     },
     plugins: [
         // new HtmlWebpackPlugin(),
         //热部署插件
-       // new webpack.HotModuleReplacementPlugin(),
+        // new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             // filename:'b.html',
             template: "./src/index.html",
