@@ -17,7 +17,8 @@ module.exports = {
                 //file-loader的主要功能是：把源文件迁移到指定的目录（可以简单理解为从源文件目录迁移到build目录
                 test: /\.(jpg|png|gif)$/,
                 loader: 'url-loader?limit=8192&name=asset/[hash:8].[name].[ext]'
-            }
+            },
+           
         ]
     },
     //以下是服务环境配置

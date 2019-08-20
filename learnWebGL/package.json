@@ -6,7 +6,7 @@
   "scripts": {
     "test1": "echo \"Error: no test specified\" && exit 1",
     "test": "mocha --reporter list",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server --mode development"
   },
   "author": "",
   "license": "ISC",
