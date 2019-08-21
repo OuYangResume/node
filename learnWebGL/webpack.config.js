@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-12 14:59:49
+ * @LastEditTime: 2019-08-21 16:50:01
+ * @LastEditors: Please set LastEditors
+ */
 var path = require('path');
 var appPath = path.resolve(__dirname, './src/threeTwo.js');
 var buildPath = path.resolve(__dirname, './build');

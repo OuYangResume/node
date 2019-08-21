@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-13 15:00:55
- * @LastEditTime: 2019-08-20 15:27:16
+ * @LastEditTime: 2019-08-21 17:08:50
  * @LastEditors: Please set LastEditors
  */
 import * as THREE from 'three'
@@ -102,9 +102,10 @@ function initRenderer() {
      * @param {type} 
      * @return: 
      */
-    _container.addEventListener('mousewheel', function (e) {
+    _renderer.domElement.addEventListener('wheel', function (e) {
+        //deltaY 的值大于1时，竖直方向的 DOMMouseScroll 事件,视野放大。
         var delta = e.deltaY > 0 ? 15 : -15;
-        if (_camera.fov + delta * 0.05 >= 10 && _camera.fov + delta * 0.05 <= 120) {
+        if (_camera.fov + delta * 0.05 >= 1 && _camera.fov + delta * 0.05 <= 100) {
             _camera.fov += delta * 0.05;
             //更新摄像机投影矩阵。在任何参数被改变以后必须被调用。
             _camera.updateProjectionMatrix();
@@ -266,7 +267,7 @@ function worldPostion2Screen(world_vector, camera) {
  * @return: 
  */
 function addSphereGeo() {
-    let geometry = new SphereGeometry(1000, 60, 40);
+    let geometry = new SphereGeometry(50, 256, 256);
     let material = new MeshBasicMaterial(
         { map: new ImageUtils.loadTexture('../img/p3.png') }
     )

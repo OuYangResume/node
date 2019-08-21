@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-16 14:09:49
+ * @LastEditTime: 2019-08-21 15:09:24
+ * @LastEditors: Please set LastEditors
+ */
 
 import * as THREE from 'three'
 //OrbitControls不是核心的一部分。您必须将类转换为模块并单独导入它。
@@ -21,8 +28,8 @@ function init() {
         0.1,
         100
     );
-    // camera.position.set(10, 0, 0);
-    camera.position.set(-0.3, 0, 0);
+     camera.position.set(20, 0, 0);
+   // camera.position.set(-0.3, 0, 0);
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.addEventListener("change", render);
@@ -34,7 +41,7 @@ function init() {
     // const geometry = new THREE.SphereGeometry(1, 10, 10);
     // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     // const mesh = new THREE.Mesh(geometry, material);
-    const mesh = addImg("../img/p3.png", scene, 1);
+    const mesh = addImg("../img/p4.jpg");
     // const mesh = addImg("https://qhyxpicoss.kujiale.com/r/2019/07/01/L3D137S8ENDIADDWAYUI5L7GLUF3P3WS888_3000x4000.jpg?x-oss-process=image/resize,m_fill,w_1600,h_920/format,webp", scene, 1);
     scene.add(mesh);
 
@@ -54,15 +61,14 @@ function init() {
     r()
 }
 
-function addImg(url, scene, n = 1) {
+function addImg(url) {
     const texture = THREE.ImageUtils.loadTexture(url);
     const material = new THREE.MeshBasicMaterial({ map: texture });
-    // const geometry = new THREE.SphereGeometry(1, 10, 10);
-    const geometry = new THREE.SphereGeometry(50, 256, 256);
+    const geometry = new THREE.SphereGeometry(10, 256, 256);
+   // const geometry = new THREE.SphereGeometry(50, 256, 256);
     const mesh = new THREE.Mesh(geometry, material);
     // 渲染球体的双面
     material.side = THREE.DoubleSide;
-    scene.add(mesh);
     return mesh;
 }
 
