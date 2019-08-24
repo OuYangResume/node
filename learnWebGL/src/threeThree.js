@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-16 14:09:49
- * @LastEditTime: 2019-08-21 15:09:24
+ * @LastEditTime: 2019-08-24 11:05:27
  * @LastEditors: Please set LastEditors
  */
 
@@ -13,9 +13,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 function init() {
     const renderer = new THREE.WebGLRenderer();
+    //设置设备像素比。通常用于避免HiDPI设备上绘图模糊
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
     let _container = document.getElementById('conianer');
+    renderer.setSize(_container.offsetWidth, _container.offsetHeight);
+   
     //  stat = new Stats();
     // document.body.appendChild(stat.dom);
     //一个canvas，渲染器在其上绘制输出。
@@ -24,7 +26,7 @@ function init() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
         90,
-        window.innerWidth / window.innerHeight,
+        _container.offsetWidth /_container.offsetHeight,
         0.1,
         100
     );
@@ -41,7 +43,7 @@ function init() {
     // const geometry = new THREE.SphereGeometry(1, 10, 10);
     // const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     // const mesh = new THREE.Mesh(geometry, material);
-    const mesh = addImg("../img/p4.jpg");
+    const mesh = addImg("../img/p1.jpg");
     // const mesh = addImg("https://qhyxpicoss.kujiale.com/r/2019/07/01/L3D137S8ENDIADDWAYUI5L7GLUF3P3WS888_3000x4000.jpg?x-oss-process=image/resize,m_fill,w_1600,h_920/format,webp", scene, 1);
     scene.add(mesh);
 
@@ -72,6 +74,8 @@ function addImg(url) {
     return mesh;
 }
 
-init();
+export default {
+    init: init
+};
 
 

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-13 15:00:55
- * @LastEditTime: 2019-08-21 17:08:50
+ * @LastEditTime: 2019-08-24 11:01:09
  * @LastEditors: Please set LastEditors
  */
 import * as THREE from 'three'
@@ -18,7 +18,7 @@ let _renderer, _camera, _scene, mesh, _isUserInteracting;
 var _lon = 0, _lat = 0;
 var _onPointerDownLon = 0, _onPointerDownLat = 0;
 var _onPointerDownPointerX = 0, _onPointerDownPointerY = 0;
-var _lables = [];var _sprites = [];
+var _lables = []; var _sprites = [];
 
 let _cameraOrtho, _sceneOrtho;
 var _clickableObjects = [];
@@ -182,7 +182,7 @@ function createLableSprite(scene, name, position) {
         sprite: sprite1
     };
     _sceneOrtho.add(lable.sprite);
-   // _clickableObjects.push(lable.sprite);
+    // _clickableObjects.push(lable.sprite);
     return lable;
 }
 // 创建图片标记
@@ -269,7 +269,7 @@ function worldPostion2Screen(world_vector, camera) {
 function addSphereGeo() {
     let geometry = new SphereGeometry(50, 256, 256);
     let material = new MeshBasicMaterial(
-        { map: new ImageUtils.loadTexture('../img/p3.png') }
+        { map: new ImageUtils.loadTexture('../img/p2.jpg') }
     )
     geometry.scale(-1, 1, 1); //x取反（面朝里）
     //创建球和添加贴图材质
@@ -304,10 +304,15 @@ function addBoxGeo() {
     _scene.add(ambientLight);
 }
 
+function init() {
+    initCamera();
+    addSphereGeo();
+    //addBoxGeo()
+    initRenderer();
+    initLable(lables, sprite);
+    animate();
+}
 
-initCamera();
-addSphereGeo();
-//addBoxGeo()
-initRenderer();
-initLable(lables, sprite);
-animate();
+export default {
+    init:init
+}
