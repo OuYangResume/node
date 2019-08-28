@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-24 10:15:34
- * @LastEditTime: 2019-08-26 16:43:22
+ * @LastEditTime: 2019-08-27 16:13:56
  * @LastEditors: Please set LastEditors
  */
 import * as THREE from 'three'
@@ -31,20 +31,36 @@ class VR {
         this._container.appendChild(this._renderer.domElement);
         //
         this._camera = new PerspectiveCamera(this.cameraPara.fov, this.cameraPara.aspect, this.cameraPara.near, this.cameraPara.far);
-      //  this._camera.position.set(this.cameraPosition.x,this.cameraPosition.y,this.cameraPosition.z);
+        //  this._camera.position.set(this.cameraPosition.x,this.cameraPosition.y,this.cameraPosition.z);
         this._camera.lookAt(new Vector3(0, 0, 0))
 
-        let mesh = this._addImg(this.imageUrl);
+        let mesh = this._addImg("../img/p1.jpg");
         this._scene.add(mesh);
         this._camera.position.set(20, 0, 0);
 
         //坐标插件
         this._scene.add(new THREE.AxisHelper(1000));
+
+
+        const controls = new OrbitControls(this._camera, this._renderer.domElement);
+        controls.addEventListener("change", render);
+        controls.minDistance = 1;
+        // controls.maxDistance = 200;
+        controls.maxDistance = 20;
+        controls.enablePan = false;
+        controls.update();
+        controls.target.copy(mesh.position);
+
+        function render() {
+            let vm = this;
+            vm._renderer.render(vm._scene, vm._camera);
+        }
     }
     render() {
-        this._renderer.render(this._scene, this._camera);
+        let vm = this;
+        vm._renderer.render(vm._scene, vm._camera);
     }
-    
+
 
     _addImg(url) {
         const texture = THREE.ImageUtils.loadTexture(url);
@@ -80,7 +96,7 @@ class VR {
 
         //默认相机参数
         this.cameraPara = { "fov": 90, "aspect": this._container.offsetWidth / this._container.offsetHeight, "near": 0.1, "far": 100 };
-        this.cameraPosition = { "x": 0, "y": 0, "z": 0 }; 
+        this.cameraPosition = { "x": 0, "y": 0, "z": 0 };
         let cameraPara = options.cameraPara, cameraPosition = options.cameraPosition
         if (cameraPara) {
             for (var property in cameraPara) {
