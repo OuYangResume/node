@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-28 09:08:58
- * @LastEditTime: 2019-08-28 10:10:08
+ * @LastEditTime: 2019-08-28 15:11:49
  * @LastEditors: Please set LastEditors
  */
 
@@ -218,11 +218,9 @@ function draw() {
     initControls();
    // initStats();
     initGui();
-
     animate();
     window.onresize = onWindowResize;
 }
-
 
 export default {
     init: draw

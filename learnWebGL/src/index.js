@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-24 10:42:39
- * @LastEditTime: 2019-08-28 11:24:43
+ * @LastEditTime: 2019-08-28 17:49:30
  * @LastEditors: Please set LastEditors
  */
 //  import VR from "./VR效果/threeFour.js/index.js"
@@ -41,6 +41,8 @@
 
  //import VR from "./雪花下落效果/index.js"
 
- import VR from "./贴图反光效果/index.js"
+ //import VR from "./贴图反光效果/index.js"
+
+ import VR from "./坐标系转换/index.js"
 
 VR.init()
