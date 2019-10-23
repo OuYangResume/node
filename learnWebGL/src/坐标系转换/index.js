@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-28 14:00:59
- * @LastEditTime: 2019-08-28 18:53:42
+ * @LastEditTime: 2019-09-02 13:38:48
  * @LastEditors: Please set LastEditors
  */
 
@@ -201,25 +201,6 @@ function render() {
     one.style.position = "absolute";
     one.style.top = oneTop;
     one.style.left = oneLeft;
-
-    // 修改第一个的div的位置
-    // $(".one").css({
-    //     left:vector1.x * halfWidth + halfWidth,
-    //     top:-vector1.y * halfHeight + halfHeight
-    // });
-
-
-    // $(".two").css({
-    //     left:vector2.x * halfWidth + halfWidth,
-    //     top:-vector2.y * halfHeight + halfHeight
-    // });
-
-
-    // $(".three").css({
-    //     left:vector3.x * halfWidth + halfWidth,
-    //     top:-vector3.y * halfHeight + halfHeight
-    // });
-
 }
 
 //窗口变动触发的函数

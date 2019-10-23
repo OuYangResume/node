@@ -1,0 +1,195 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-10-11 09:55:27
+ * @LastEditTime: 2019-10-11 11:23:48
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+	    <title>矢量瓦片压平-拔高单体建筑(singleBuilding)</title>
+	    <link rel="stylesheet" href="./lib/css/mapcss.css" type="text/css"/>
+	    <link rel="stylesheet" href="./lib/css/mapbox-gl.css" type="text/css"/>  
+   	    <script type="text/javascript" src="./lib/js/stats.min.js"></script>
+		<script type="text/javascript" src="./lib/js/threebox.min.js"></script>
+	    <script type="text/javascript" src="./lib/js/mapbox-gl.js"></script>
+	    <script type="text/javascript" src="./lib/js/GeoGlobeJS.min.js"></script>
+	    <script type="text/javascript" src="./lib/js/demo_config.js"></script>
+		<script type="text/javascript" src="./lib/js/turf.min.js"></script>
+	</head>
+	<body>
+		<div id="map"></div>
+		<script>
+			//定义配置对象
+		    var Cfg = {};
+		    //系统主机IP地址
+		    Cfg.host = window.location.host;
+		    //项目名称
+		    Cfg.projectName = window.location.pathname.split("/")[1];
+            //代理服务地址
+            
+		    Cfg.proxyHostUrl = "http://" +  Cfg.host  +  "/" + Cfg.projectName + "/proxy?url=";
+			GeoGlobe.Request.setProxyHost(Cfg.proxyHostUrl);
+			
+			var vts_layer = new GeoGlobe.Layer.VTS({
+				url: "http://192.168.36.245:9010/SZ/wmts",//地址
+			 	layer: "tiledst",//图层标识
+			 	format: "protobuf",//格式
+			 	styleName: "SZ_STYLE.天地图风格",//样式名称
+			 	matrixSet: "tiledst_Matrix_0",//矩阵集名称
+			 	version: "1.0.0"
+            });
+			var style = {
+				"version": 8,
+				"sources": {},
+				"sprite": vts_layer.layers[0].metadata.sprite,
+				"glyphs": vts_layer.layers[0].metadata.glyphs,
+				"layers": vts_layer.layers
+			};
+			style.sources[vts_layer.source_id] = vts_layer.source;
+			
+			var wgs84_wgs84_mapcrs = {
+				topTileExtent:[-180, -270, 180, 90],
+				coordtransform:"none"
+			};
+			
+			//构造地图对象实例
+			var map = new GeoGlobe.Map({
+				mapCRS: wgs84_wgs84_mapcrs,
+				style: style,
+				container: 'map',
+				zoom: 18,
+				center: [ 114.01100226706183, 22.544579342913437 ],
+				pitch: 40,
+				renderWorldCopies: false,
+				isIntScrollZoom: false,
+				isAttributionControl: false
+			});
+			
+			//定义建筑物是否被选中
+			var isSelected = false;
+			//构造THREE可视化图层
+			var threebox = new GeoGlobe.Visuals.Three();
+			//绑定鼠标点击事件
+			threebox.on('overlayerclick', function(e){
+				//console.info(e);
+				isSelected = true;
+				var intersectedFloor = singleBuildingLayer.highlightFloor_Wall(e.param.pickedInfos);
+				if(intersectedFloor) {
+					console.info(intersectedFloor.userData.attributes.OriginalData.properties);
+				}
+			});
+			//绑定鼠标移动事件
+			threebox.on('overlayerhover', function(e){
+				//console.info(e);
+				//var intersectedFloor = singleBuildingLayer.getSelectedFloor(e.param.pickedInfos);
+				var intersectedFloor = singleBuildingLayer.highlightFloor(e.param.pickedInfos);
+				if(intersectedFloor) {
+					var level = intersectedFloor.userData.attributes.level;
+					console.info(level);
+				}
+			});
+			//添加到地图中
+			threebox.addTo(map, map.painter.context.gl);  //与原生图层处于同一景深
+			
+			//构造建筑物单体化图层
+			var singleBuildingLayer = new GeoGlobe.Visuals.Three.SingleBuildingLayer({
+				id: 'single building',
+				data: {},
+				visible: true,
+				isCirclesVisible: false,
+				isFloorLinesVisible: true,
+				lightShown:  false,
+				lightColor:  'rgb(255, 255, 0)',
+				floorColor:  'white',
+				floorColorOpacity: 1.0,
+				wallColor :  'yellow',
+				wallColorOpacity: 1.0,
+				movingFloorColor: 'rgb(135, 135, 135)',
+				movingFloorColorOpacity: 0.2
+			});
+			//添加到THREE图层
+			singleBuildingLayer.addTo(threebox);
+			//绘制
+			threebox.render();
+			//custom style layer(singleBuilding)
+			var customLayer_SingleBuilding = {
+				id: 'custom_layer_singlebuilding',
+				type: 'custom',
+				renderingMode: '3d',  //需要设置此属性
+				onAdd: function(map, gl){
+					
+				},
+				render: function(gl, matrix){
+					threebox._threebox.render();  //渲染
+				}
+			};
+			map.on('load', function() {
+				var layers = map.getStyle().layers;
+				var firstSymbolId;
+				for (var i = 0; i < layers.length; i++) {
+					if (layers[i].type === 'symbol') {
+						firstSymbolId = layers[i].id;
+						break;
+					}
+				}
+				//添加fill-extrusion图层
+				map.addLayer({
+					"id": "房屋",
+					"source": vts_layer.source_id,
+					"source-layer": "jzw_201807_py_1000_Clip",
+					"type": "fill-extrusion",
+					"minzoom": 15,
+					"maxzoom": 20,
+					"paint": {
+						"fill-extrusion-base": 0,
+						"fill-extrusion-color": 'rgba(233,230,227,1)',
+						"fill-extrusion-height": 20
+					}
+				}, firstSymbolId);
+				//add a custom style layer(singleBuilding)
+				map.addLayer(customLayer_SingleBuilding, firstSymbolId);
+			});
+			
+			map.on('click', function(e) {
+				setTimeout(function(){
+					if(isSelected == true){
+						isSelected = false;
+						return;
+					}else{
+						var features = map.queryRenderedFeatures(e.point, { layers: ["房屋"] });
+						if(!features.length) return;
+						//压平房屋
+						var spec = [
+							"match", 
+							["string", ["get", "唯一标识码"]],
+							features[0].properties['唯一标识码'],
+							0,
+							20
+						];
+						map.setPaintProperty('房屋', 'fill-extrusion-height', spec);
+						
+						var feature = {
+							type:"Feature",
+							geometry:{},
+							properties: features[0].properties
+						};
+						feature.geometry = features[0].geometry;
+						feature.properties.levels = "[3,3,4,3,3,4,3]";
+						//定义渲染完成回调函数
+						map.flattenDoneCallback = function(e) {
+							map.off('idle', map.flattenDoneCallback);
+							delete map.flattenDoneCallback;
+							singleBuildingLayer.data = feature;
+							threebox.render();
+						};
+						map.on('idle', map.flattenDoneCallback);
+					}
+				},100)
+			});
+		</script>
+	</body>
+</html>
