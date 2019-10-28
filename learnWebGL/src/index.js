@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-24 10:42:39
- * @LastEditTime: 2019-10-23 16:03:12
+ * @LastEditTime: 2019-10-28 17:18:05
  * @LastEditors: Please set LastEditors
  */
 //  import VR from "./VR效果/threeFour.js/index.js"
@@ -45,6 +45,8 @@
 
 //import VR from "./太阳系/index.js"
 
-import VR from "./自定义geo/index.js"
+//import VR from "./自定义geo/index.js"
+
+import VR from "./ThreeBSP/index.js"
 
 VR.init()
