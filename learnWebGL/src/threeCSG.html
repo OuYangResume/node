@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-29 16:29:15
- * @LastEditTime: 2019-10-29 16:41:07
+ * @LastEditTime: 2019-10-30 09:09:09
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/learnWebGL/src/threeCSG.html
@@ -14,7 +14,8 @@
 
     <script type="text/javascript" src="./lib/three.js"></script>
     <script type="text/javascript" src="./lib/ThreeCSG.js"></script>
-   
+    <script src="./lib/OrbitControls1.js"></script>
+
     <script type="text/javascript">
         var renderer, scene, camera, light;
         window.onload = function () {
@@ -110,7 +111,7 @@
                 renderer.render(scene, camera);
             })();
 
-           var controls = new OrbitControls(camera, renderer.domElement);
+            var controls = new THREE.OrbitControls(camera, renderer.domElement);
 
             // 如果使用animate方法时，将此函数删除
             //controls.addEventListener( 'change', render );
