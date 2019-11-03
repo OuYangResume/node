@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-30 09:16:53
- * @LastEditTime: 2019-10-31 17:15:07
+ * @LastEditTime: 2019-10-31 23:00:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/learnWebGL/src/threeBSP.html
@@ -128,7 +128,6 @@
         //环境光
         scene.add(new THREE.AmbientLight(0x404040));
         //直射光
-
         light = new THREE.DirectionalLight(0xaabbff, 0.3);
         light.position.x = 300;
         light.position.y = 250;
@@ -253,12 +252,13 @@
         // });
         // var mesh = new THREE.Mesh(geometry, shaderMaterial);
         var points = [
-            [10, 0, 2],
-            [13, 0, 4],
-            [0, 0, 10],
-            [5, 0, 10],
+            [0, 0, 0],
+            [15, 0, 0],
+            [20, 0, 5],
+            [25, 0, 10],
+            [10, 0, 10],
         ]
-        var geometry = getGeometry(points, 5);
+        var geometry = getGeometry(points, 3);
         var MeshLambertMaterial = new THREE.MeshLambertMaterial({ color: 0xaabbff, side: THREE.DoubleSide });
         var mesh = new THREE.Mesh(geometry, MeshLambertMaterial);
         scene.add(mesh);
@@ -301,8 +301,8 @@
             }
         }
         var geometry = new THREE.Geometry();
-        geometry.vertices = vertices;
-        geometry.faces = faces;
+        geometry.vertices = vertices;//顶点的队列，保存了模型中每个顶点的位置信息
+        geometry.faces = faces;//描述每个顶点之间如何组成模型面的面队列
         geometry.computeFaceNormals();      //自动计算法向量
         return geometry;
     }
