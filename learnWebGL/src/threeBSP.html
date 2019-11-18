@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-10-30 09:16:53
- * @LastEditTime: 2019-10-31 23:00:13
+ * @LastEditTime: 2019-11-17 16:11:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/learnWebGL/src/threeBSP.html
@@ -108,6 +108,8 @@
         //renderer.setClearColor(new THREE.Color(0xffffff)); //设置背景颜色
         renderer.setSize(container.offsetWidth, container.offsetHeight);
         container.appendChild(renderer.domElement);
+        //添加canvas的点击事件
+        renderer.domElement.addEventListener('click', onMouseClick, false);
     }
 
     var camera;
@@ -120,10 +122,22 @@
         camera = new THREE.PerspectiveCamera(40, container.offsetWidth / container.offsetHeight, 1, 10000);
         camera.position.set(700, 200, - 500);
     }
-
+    var group;
+    function initGroup() {
+        group = new THREE.Group();
+        scene.add(group);
+        addShaderMaterial();
+        // addBoxGeo();
+        var size = [160, 50, 120];
+        var position = [100, 25, 70];
+        var holes = [{
+            position: [100, 50, 70],
+            size: [150, 40, 120]
+        }]
+        addBSPGeo(size, holes);
+    }
 
     var light;
-
     function initLight() {
         //环境光
         scene.add(new THREE.AmbientLight(0x404040));
@@ -158,7 +172,7 @@
         controls.enablePan = true;
     }
     function render() {
-        uniforms["u_time"].value = Date.now() * 0.0000001 * 0.00001;
+        // uniforms["u_time"].value = Date.now() * 0.0000001 * 0.00001;
         //mesh.geometry.attributes.u_time.needsUpdate = true;
         renderer.render(scene, camera);
     }
@@ -177,9 +191,6 @@
     var uniforms
     function initModel() {
 
-        //辅助工具
-        var helper = new THREE.AxesHelper(500);
-        scene.add(helper);
 
         var cube_geometry = new THREE.CubeGeometry(30, 30, 30);
         var cube_mesh = new THREE.Mesh(cube_geometry);
@@ -217,6 +228,9 @@
      * @return: 
      */
     function addSky() {
+        //辅助工具
+        var helper = new THREE.AxesHelper(500);
+        scene.add(helper);
         console.log(new Date().getSeconds())
         var vertexShader = document.getElementById('vertexShader').textContent;
         var fragmentShader = document.getElementById('fragmentShader').textContent;
@@ -238,6 +252,11 @@
         var sky = new THREE.Mesh(skyGeo, skyMat);
         scene.add(sky);
     }
+    /**
+     * @description: 添加不规则shp和顶面的线。
+     * @param {type} 
+     * @return: 
+     */
     function addShaderMaterial() {
         // var geometry = new THREE.PlaneBufferGeometry(1, 1, 2);
         // //sphere_mesh.position.x = 10;
@@ -253,17 +272,83 @@
         // var mesh = new THREE.Mesh(geometry, shaderMaterial);
         var points = [
             [0, 0, 0],
-            [15, 0, 0],
-            [20, 0, 5],
-            [25, 0, 10],
-            [10, 0, 10],
+            [200, 0, 0],
+            [200, 0, 100],
+            [180, 0, 160],
+            [0, 0, 160],
         ]
-        var geometry = getGeometry(points, 3);
-        var MeshLambertMaterial = new THREE.MeshLambertMaterial({ color: 0xaabbff, side: THREE.DoubleSide });
+        var geometry = getGeometry(points, -3);
+        var color = new THREE.Color("rgb(232,232,232)");
+        var MeshLambertMaterial = new THREE.MeshLambertMaterial({ color: color, side: THREE.DoubleSide });
         var mesh = new THREE.Mesh(geometry, MeshLambertMaterial);
-        scene.add(mesh);
+        group.add(mesh);
+
+
+        var LineMaterial = new THREE.LineBasicMaterial({
+            color: "rgb(255,215,0)"
+        });
+        var geometry = getBorderGeometry(points);
+        var line = new THREE.Line(geometry, LineMaterial);
+        group.add(line);
     }
 
+    function addBSPGeo(size, holes) {
+        var geometry = new THREE.BoxGeometry(size[0], size[1], size[2]);
+        var materials = new THREE.MeshLambertMaterial({ color: 0xb0cee0, side: THREE.DoubleSide })
+        var result = new THREE.Mesh(geometry, materials);
+        if (holes) {
+            for (var i = 0; i < holes.length; i++) {
+                var totalBSP = new ThreeBSP(result);
+                var hole = holes[i];
+                var holeGeometry = new THREE.BoxGeometry(hole.size[0], hole.size[1], hole.size[2]);
+                var holeCube = new THREE.Mesh(holeGeometry);
+                var clipBSP = new ThreeBSP(holeCube);
+               // union 联合，intersect相交，subtract减//
+                var resultBSP = totalBSP.subtract(clipBSP);
+                //var resultBSP = totalBSP.union(clipBSP);
+                //var resultBSP = totalBSP.intersect(clipBSP);
+                
+                result = resultBSP.toMesh();
+
+                result.position.x = hole.position[0];
+                result.position.y = hole.position[1] + hole.size[1] / 2;
+                result.position.z = hole.position[2];
+            }
+            result.material = materials;
+        }
+        group.add(result);
+    }
+    function addBoxGeo() {
+        var maxGeometry = new THREE.BoxGeometry(160, 50, 120);
+        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        var maxCube = new THREE.Mesh(maxGeometry, material);
+        maxCube.position.x = 100;
+        maxCube.position.y = 25;
+        maxCube.position.z = 70;
+        group.add(maxCube);
+        var cube_bsp = new ThreeBSP(maxCube);
+
+
+        var minGeometry = new THREE.BoxGeometry(150, 60, 110);
+        var minMaterial = new THREE.MeshBasicMaterial({ color: 'red' });
+        var minCube = new THREE.Mesh(minGeometry, minMaterial);
+        minCube.position.x = 100;
+        minCube.position.y = 30;
+        minCube.position.z = 70;
+
+        var sphere_bsp = new ThreeBSP(minCube);
+        group.add(minCube)
+        var subtract_bsp = cube_bsp.subtract(sphere_bsp);
+
+        var result = subtract_bsp.toMesh();
+        //group.add(result)
+
+    }
+    /**
+     * @description: 创建任意geo的空间。
+     * @param {type} 
+     * @return: 
+     */
     function getGeometry(points, height) {
         var topPoints = [];
         for (var i = 0; i < points.length; i++) {
@@ -306,6 +391,23 @@
         geometry.computeFaceNormals();      //自动计算法向量
         return geometry;
     }
+    /**
+     * @description: 创建顶部的边界线
+     * @param {type} 
+     * @return: 
+     */
+    function getBorderGeometry(points) {
+        var geometry = new THREE.Geometry();
+        for (var i = 0; i < points.length; i++) {
+            var point = points[i];
+            geometry.vertices.push(new THREE.Vector3(point[0], point[1], point[2]));
+            //添加起点位置，形成首尾链接。
+            if (i == points.length - 1) {
+                geometry.vertices.push(new THREE.Vector3(points[0][0], points[0][1], points[0][2]));
+            }
+        }
+        return geometry;
+    }
     //窗口变动触发的函数
     function onWindowResize() {
 
@@ -314,16 +416,38 @@
         renderer.setSize(container.innerWidth, container.innerHeight);
 
     }
-    function draw() {
 
+    //声明raycaster和mouse变量
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+    function onMouseClick(event) {
+        //通过鼠标点击的位置计算出raycaster所需要的点的位置，以屏幕中心为原点，值的范围为-1到1.
+        mouse.x = (event.clientX / container.offsetWidth) * 2 - 1;
+        mouse.y = - (event.clientY / container.offsetHeight) * 2 + 1;
+
+        // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
+        raycaster.setFromCamera(mouse, camera);
+
+        // 获取raycaster直线和group下模型相交的数组集合
+        var intersects = raycaster.intersectObjects(group.children);
+
+        console.log(intersects);
+
+        //将所有的相交的模型的颜色设置为红色，如果只需要将第一个触发事件，那就数组的第一个模型改变颜色即可
+        if (intersects.length > 0) {
+            var item = intersects[0].object;
+            item.material = new THREE.MeshBasicMaterial({ color: "#f86332", side: THREE.DoubleSide });        //选中的样式
+        }
+    }
+    function draw() {
         initContainer();
-        initRender();
         initScene();
+        initGroup();
+        initRender();
         initCamera();
         initLight();
-        initModel();
+        // initModel();
         addSky();
-        addShaderMaterial();
         initControls();
         animate();
         // window.onresize = onWindowResize;
