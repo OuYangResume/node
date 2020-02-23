@@ -1,24 +1,25 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-05-22 14:12:18
+ * @LastEditTime: 2020-02-23 17:06:31
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /node/gitbook/SUMMARY.md
+ -->
 # Summary
 
 * [我的博客](https://ouyangresume.github.io/)
 
 ### 人性的弱点
-
-* [我为何而活](part1/index.md)
-    * [追求爱情](part1/longingForLove.md)
-    * [追求知识](part1/writing.md)
-    * [同情心](part1/gitbook.md)
-
-### 时间简史
-
-* [We love feedback](part2/feedback_please.md)
-* [Better tools for authors](part2/better_tools.md)
+* [我为何而活](part1/writing.md)
 
 ### 杂碎小知识
 
 * [css](css/index.md)
     * [伪类和伪元素](css/伪类和伪元素.md)
-
+* [diary](diary/index.md)
+    * [map、filter、reduce](diary/map、filter、reduce.md)
+    * [模块化](diary/模块化.md)
 ---
 
 * [Last part without title](part3/title.md)

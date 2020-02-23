@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2019-01-07 09:49:00
+ * @LastEditTime : 2020-02-05 10:07:59
+ * @LastEditors  : Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /node/expressdemo/server.js
+ */
 const express = require('express')
 const app = express()
 
@@ -20,14 +28,14 @@ let uploadRouter =require('./routers/upload.js')
 //邮件功能
 //let mailerRouter =require('./routers/mailer')
 //tile38 地理空间数据库和地理围栏服务器
-let tile38 =require('./routers/tile38')
+//let tile38 =require('./routers/tile38')
 
 app.use('/hello', helloRouter)
 app.use('/', indexRouter)
 app.use('/user', userRouter)
 app.use('/upload',uploadRouter);
 //app.use('/kitten',kittenRouter)
-app.use('/tile38',tile38);
+//app.use('/tile38',tile38);
 
 
 
