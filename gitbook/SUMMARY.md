@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-05-22 14:12:18
- * @LastEditTime: 2020-02-25 14:41:11
+ * @LastEditTime: 2020-02-26 13:00:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/gitbook/SUMMARY.md
@@ -12,6 +12,7 @@
 
 ### 人性的弱点
 * [我为何而活](part1/writing.md)
+* [home](part1/home.md)
 
 ### 杂碎小知识
 
@@ -21,6 +22,7 @@
     * [map、filter、reduce](diary/map、filter、reduce.md)
     * [模块化](diary/模块化.md)
     * [async](diary/async.md)
+    * [class](diary/class.md)
 ---
 
 * [Last part without title](part3/title.md)

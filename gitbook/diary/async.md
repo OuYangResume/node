@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-25 14:29:02
- * @LastEditTime: 2020-02-25 14:57:08
+ * @LastEditTime: 2020-02-25 15:02:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/gitbook/diary/anscy.md
@@ -74,13 +74,11 @@ async function myFunction() {
 let foo = await getFoo();
 let bar = await getBar();
 ```
-getFoo和getBar是两个独立的异步操作（即互不依赖），被写成继发关系。这样比较耗时，因为只有getFoo完成以后，才会执行getBar，完全可以让它们同时触发。
-
+getFoo和getBar是两个独立的异步操作（即互不依赖），被写成继发关系。这样比较耗时，因为只有getFoo完成以后，才会执行getBar，完全可以让它们同时触发。    
 ``` javascript 
 let [foo, bar] = await Promise.all([getFoo(), getBar()]);
 ```
-
-3. await命令只能用在async函数之中，如果用在普通函数，就会报错。
+3. await命令只能用在async函数之中，如果用在普通函数，就会报错。        
 ``` javascript 
 async function dbFuc(db) {
   let docs = [{}, {}, {}];
@@ -89,9 +87,7 @@ async function dbFuc(db) {
   let results = await Promise.all(promises);
   console.log(results);
 }
-
 // 或者使用下面的写法
-
 async function dbFuc(db) {
   let docs = [{}, {}, {}];
   let promises = docs.map((doc) => db.post(doc));
@@ -102,4 +98,4 @@ async function dbFuc(db) {
   }
   console.log(results);
 }
-```
+```   
