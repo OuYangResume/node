@@ -1,0 +1,74 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-26 13:44:57
+ * @LastEditTime: 2020-03-26 17:03:09
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /node/simpleVue/WebWorker.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Worker</title>
+</head>
+
+<body>
+    <div>
+        myworker 输出内容：
+        <span id='app'></span>
+        <input type='text' title='' id='msg'>
+        <button onclick='sendMessage()'>
+            发送
+        </button>
+        <button onclick='stopWorker()'>
+            stop!
+        </button>
+    </div>
+</body>
+<script type='text/javascript'>
+    // 使用Worker前检查一下浏览器是否支持
+    if (typeof (Worker) === 'undefined')
+        document.writeln(' Sorry! No Web Worker support.. ')
+    else {
+         //向子线程发送信息----没效果
+         function sendMessage() {
+            let text = document.getElementById('msg').value;
+            worker.postMessage({  cmd: 'info', msg: text });
+        }
+        // 创建 子线程 worker
+        var worker = new Worker('./webWork.js', { name: 'worker' });
+        // 主线程 给 子线程 发消息
+        // worker.postMessage('Hello World');
+        worker.postMessage({ method: 'echo', cmd: 'start', args: ['Work'], msg: '发消息' });
+
+        // 主线程 监听 子线程 发的消息
+        worker.onmessage = function (event) {
+            console.log('Received message ' + event.data);
+            doSomething();
+        }
+        function doSomething() {
+            // 执行任务 通知 子线程调用结束
+            worker.postMessage('Work done!');
+            // 使用 完毕 关闭 子线程
+            worker.terminate();
+        }
+        //子线程 myworker
+        let myworker = new Worker('webWork2.js', { name: 'myworker' });
+        // myworker 进行计算 监听返回的结果 显示在页面上
+        myworker.onmessage = (e) => {
+            document.getElementById("app").innerHTML = e.data
+        }
+
+        // 点击停止 按钮 通知 mywork 停止计算
+        function stopWorker() {
+            myworker.postMessage('stop');
+            // myworker 完成任务以后，主线程就可以把它关掉。
+            myworker.terminate();
+        }
+    }
+</script>
+
+</html>

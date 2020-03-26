@@ -1,0 +1,45 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-26 17:18:43
+ * @LastEditTime: 2020-03-26 17:36:17
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /node/simpleVue/image.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载图片</title>
+    <style>
+        img {
+            width: 500px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <!-- <img src="./images/dapeng1_20180915.jpg" alt="">
+        <img src="./images/dapeng2_20180915.jpg" alt="">
+        <img src="./images/dapeng3_20180915.jpg" alt="">
+        <img src="./images/hzzx1_20180930.jpg" alt="">
+        <img src="./images/hzzx2_20180930.jpg" alt="">
+        <img src="./images/hzzx3_20180930.jpg" alt=""> -->
+    </div>
+    <div id="result"></div>
+</body>
+<script>
+    let w = new Worker("./workers.js");
+    w.onmessage =
+        function (event) {
+            var img = document.createElement("img");
+            img.src = window.URL.createObjectURL(event.data);
+            document.querySelector('#result').appendChild(img);
+        };
+</script>
+
+</html>

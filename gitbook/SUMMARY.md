@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2019-05-22 14:12:18
- * @LastEditTime: 2020-02-26 13:00:57
+ * @LastEditTime: 2020-03-26 13:42:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/gitbook/SUMMARY.md
@@ -23,6 +23,7 @@
     * [模块化](diary/模块化.md)
     * [async](diary/async.md)
     * [class](diary/class.md)
+    * [Web Worker](diary/WebWorker.md)
 ---
 
 * [Last part without title](part3/title.md)
