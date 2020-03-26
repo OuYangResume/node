@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-05 11:34:12
- * @LastEditTime : 2020-02-05 18:11:42
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-08 12:58:41
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/gitbook/diary/index.md
  -->
@@ -29,3 +29,9 @@ console.log(returnedTarget);
 console.log(source)
 // expected output: Object { b: 4, c: 5 }
 ``` 
+
+#### 2020.3.6
+注册微信小程序帐号。
+AppID(小程序ID):`wxd795f4920a0fb54d`.
+AppSecret(小程序密钥):`279ff1201dea393e956b7db286e56a17`.
+腾讯地图位置服务的key:`BCGBZ-AYTEF-4ONJJ-JY3PU-ZY3HF-HYF3T`
