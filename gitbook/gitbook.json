@@ -16,14 +16,19 @@
     "plugins": [
         "-lunr",
         "-search",
-        "search-pro",
-        "baidu",
-        "katex",
-        "github-buttons",
-        "github",
-        "include-codeblock",
-        "ace",
-        "chapter-fold"
+        "-search-pro",
+        "-baidu",
+        "-katex",
+        "-github-buttons",
+        "-github",
+        "-include-codeblock",
+        "-ace",
+        "-chapter-fold",
+        "-expandable-chapters",
+        "summary",
+        "toggle-chapters",
+        "back-to-top-button",
+        "expandable-chapters"
     ],
     "pluginsConfig": {
         "theme-default": {

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-05 11:34:12
- * @LastEditTime: 2020-03-08 12:58:41
+ * @LastEditTime: 2020-03-31 15:36:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/gitbook/diary/index.md
@@ -35,3 +35,11 @@ console.log(source)
 AppID(小程序ID):`wxd795f4920a0fb54d`.
 AppSecret(小程序密钥):`279ff1201dea393e956b7db286e56a17`.
 腾讯地图位置服务的key:`BCGBZ-AYTEF-4ONJJ-JY3PU-ZY3HF-HYF3T`
+
+#### 2020.3.30
+[前端开发者必会的34道Vue面试题解析](https://juejin.im/post/5e8064c551882573a13777e2?utm_source=gold_browser_extension)
+
+
+#### 2020.3.31
+1. sessionStorage刷新页面不会清除。新建table页会消失。
+2. vuex刷新页面会被清除。
