@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-02-05 11:34:12
- * @LastEditTime: 2020-03-31 15:36:17
+ * @LastEditTime: 2020-03-31 18:20:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/gitbook/diary/index.md
@@ -43,3 +43,14 @@ AppSecret(小程序密钥):`279ff1201dea393e956b7db286e56a17`.
 #### 2020.3.31
 1. sessionStorage刷新页面不会清除。新建table页会消失。
 2. vuex刷新页面会被清除。
+3. href是Hypertext Reference的简写，表示超文本引用，指向网络资源所在位置。
+4. src是source的简写，目的是要把文件下载到html页面中去。
+href 用于在当前文档和引用资源之间确立联系
+src 用于替换当前内容
+
+``` 
+1. 当浏览器遇到href会并行下载资源并且不会停止对当前文档的处理。
+(同时也是为什么建议使用 link 方式加载 CSS，而不是使用 @import 方式)
+2. 当浏览器解析到src ，会暂停其他资源的下载和处理，直到将该资源加载或执行完毕。
+(这也是script标签为什么放在底部而不是头部的原因)
+```
