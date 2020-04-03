@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-01 11:36:08
- * @LastEditTime: 2020-04-02 11:18:17
+ * @LastEditTime: 2020-04-02 18:42:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/App.vue
@@ -10,7 +10,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link>|
+      <router-link to="/test">Test</router-link>
     </div>
     <router-view />
   </div>

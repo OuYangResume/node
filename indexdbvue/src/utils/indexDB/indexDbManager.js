@@ -1,7 +1,7 @@
 /*
  * @Author: oouyang
  * @Date: 2020-04-01 14:44:01
- * @LastEditTime: 2020-04-02 11:55:47
+ * @LastEditTime: 2020-04-03 17:03:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/utils/indexDb/indexDbManager.js
@@ -22,7 +22,6 @@ class indexDBManager {
      */
     initIndexDB(dbname, version, newStore) {
         var version = version || 1;
-        debugger;
         //这个方法接受两个参数，第一个参数是字符串，表示数据库的名字。如果指定的数据库不存在，就会新建数据库.
         var request = this.indexedDB.open(dbname, version);
 
@@ -44,6 +43,7 @@ class indexDBManager {
                     //新建对象仓库
                     objectStore = this.dbObject.createObjectStore(newStore.name, { keyPath: newStore.key });
                     //创建索引---索引名称、索引所在的属性、配置对象{说明该属性是否包含重复的值}
+                    objectStore.createIndex('id', 'id', { unique: true });
                     // objectStore.createIndex('name', 'name', { unique: false });
                     // objectStore.createIndex('email', 'email', { unique: true });
                 }
@@ -77,47 +77,78 @@ class indexDBManager {
         }
     }
     /**
-     * @description: 添加数据---
+     * @description: 添加||更新数据
      * @param {type} 
      * @return: 
      */
-    add(db, storeName) {
+    add(db, storeName, dataObject) {
         //写入数据需要新建一个事务。新建时必须指定表格名称和操作模式（"只读"或"读写"）
         var transaction = db.transaction(storeName, 'readwrite');
         var store = transaction.objectStore(storeName);
-        var request = store.add({ id: 1, name: '张三', age: 24, email: 'zhangsan@example.com' });
-        request.onsuccess = function (event) {
-            console.log('数据写入成功');
-        };
-        request.onerror = function (event) {
-            console.log('数据写入失败');
+        // let dataObject = {
+        //     "sex": [{ value: "1", name: "男" }, { value: "2", name: "女" }],
+        //     "houseType": [{ value: "1", name: "出租" }, { value: "2", name: "自用" }, { value: "3", name: "待租" }, { value: "4", name: "闲置" }, { value: "5", name: "部分出租" }, { value: "6", name: "其他" }]
+        // }
+        var request
+        for (let i in dataObject) {
+            let dictId = i;
+            let itemData = dataObject[i];
+            request = store.put(Object.assign({ id: dictId, list: itemData }));
+            request.onsuccess = function (event) {
+                console.log('数据写入成功');
+            };
+            request.onerror = function (event) {
+                console.log('数据写入失败');
+            }
         }
     }
 
     /**
-     * @description: 读取数据
+     * @description: 根据key索引读取数据
      * @param {type} 
      * @return: 
      */
-    read(db, storeName) {
+    readDataByKey(db, storeName, key) {
         var transaction = db.transaction(storeName);
         var objectStore = transaction.objectStore(storeName);
-        var request = objectStore.get(1);
+        var request = objectStore.get(key);
         return new Promise((resolve, reject) => {
             request.onerror = function (event) {
                 console.log('事务失败');
             };
+            let resultData = [];
             request.onsuccess = function (event) {
                 if (request.result) {
-                    resolve(request.result)
+                    resultData = request.result
+                    resolve(resultData)
                 } else {
-                    resolve('未获得数据记录')
+                    resolve(resultData)
                 }
             };
         })
 
     }
 
+    /**
+     * @description: 获取所有数据
+     * @param {type} 
+     * @return: 
+     */
+    getdatabycursor(db, storename) {
+        var objectStore = db.transaction(storename).objectStore(storename);
+        var dataList = [];
+        return new Promise((resolve, reject) => {
+            objectStore.openCursor().onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    dataList.push(cursor.value)
+                    cursor.continue();
+                } else {
+                    resolve(dataList);
+                }
+            };
+        })
+    }
 
 }
 export { indexDBManager }

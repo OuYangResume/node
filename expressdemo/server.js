@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2019-01-07 09:49:00
- * @LastEditTime: 2020-03-08 18:03:33
+ * @LastEditTime: 2020-04-02 17:03:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/expressdemo/server.js
@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));//解析post请求数据
 var helloRouter = require('./routers/hello.js')
 let indexRouter = require('./routers/index')
 let userRouter = require('./routers/user.js')
+let indexDBRouter = require ('./routers/indexDB.js')
 //monogdb使用
 //let kittenRouter =require('./routers/kitten')
 //文件上传功能
@@ -35,6 +36,7 @@ let wechatRouter = require('./routers/wechat.js')
 app.use('/hello', helloRouter)
 app.use('/', indexRouter)
 app.use('/user', userRouter)
+app.use('/indexDB',indexDBRouter)
 app.use('/upload', uploadRouter);
 app.use('/wechat', wechatRouter);
 
@@ -42,6 +44,15 @@ app.use('/wechat', wechatRouter);
 //app.use('/tile38',tile38);
 
 
+//设置允许跨域访问该服务.
+app.all('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Content-Type', 'application/json;charset=utf-8');
+  next();
+});
 
 //托管静态文件
 app.use(express.static('public'))
