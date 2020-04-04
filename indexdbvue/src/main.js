@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-01 11:36:08
- * @LastEditTime: 2020-04-02 10:53:31
+ * @LastEditTime: 2020-04-04 10:52:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/main.js
@@ -23,5 +23,7 @@ new Vue({
   router,
   store,
   render: h => h(App),
- 
+  mounted(){
+    Vue.use(indexDB)
+  },
 }).$mount('#app')

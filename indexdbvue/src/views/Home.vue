@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-01 11:36:08
- * @LastEditTime: 2020-04-03 15:20:58
+ * @LastEditTime: 2020-04-04 10:47:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/views/Home.vue
@@ -9,7 +9,7 @@
 <template>
   <div class="home">
     {{name}}
-    <!-- <dict name="eventLevel" v-model="filterInfo.eventLevel"></dict> -->
+    <dict name="eventLevel" v-model="filterInfo.eventLevel"></dict>
   </div>
 </template>
 

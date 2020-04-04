@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-02 17:27:10
- * @LastEditTime: 2020-04-03 17:12:28
+ * @LastEditTime: 2020-04-04 13:05:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/components/DictComponents.vue
@@ -100,8 +100,21 @@ export default {
      */
     async getOptionData(indexDbManager, key) {
       let vm = this;
-      //判断是否需要从数据库查询
-      if (this.optionData.length == 0) {
+      //判断是否需要从数据库|| indexDB查询
+      if (this.optionData.length > 0) {
+        debugger;
+        //赋值
+        this.options = this.optionData;
+        return true;
+      }
+      //解决第一次没有创建dbObject对象时的问题
+      if (this.dbObject == null) {
+        let res = await this.getDictById(key);
+        if (res.status == 200) {
+          vm.options = res.data[key];
+          return true;
+        }
+      } else {
         //从indexDB查数据
         let resIndexDb = await indexDbManager.readDataByKey(
           this.dbObject,
@@ -109,10 +122,14 @@ export default {
           key
         );
         //没有取到。先从后台查询然后存入indexdb
-        if (resIndexDb.length === 0) {
+        if (resIndexDb.length > 0) {
+          //indexDb数据库取到数据的数据赋值
+          vm.options = resIndexDb.list;
+        } else {
           let res = await this.getDictById(key);
           if (res.status == 200) {
             vm.options = res.data[key];
+            //示例数据
             let dataObject = {
               sex: [
                 { value: "1", name: "男" },
@@ -130,16 +147,11 @@ export default {
             //存入indexDB
             indexDbManager.add(this.dbObject, "dict", res.data);
           }
-        } else {
-          //indexDb数据库取到数据的数据赋值
-          vm.options = resIndexDb.list;
         }
-      } else {
-        this.options = this.optionData;
       }
     },
     /**
-     * @description: 从后台获取数据
+     * @description: 从后台获取数据---这个接口要根据具体情况设置。或者将获取数据的接口暴露在父组件上。
      * @param {type}
      * @return:
      */

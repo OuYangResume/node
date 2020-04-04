@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-01 11:36:08
- * @LastEditTime: 2020-04-02 18:42:39
+ * @LastEditTime: 2020-04-03 18:04:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/App.vue
@@ -36,8 +36,8 @@ export default {
       // var indexDbManager = new indexDb();
       // indexDbManager.initIndexDB(dbname, version, newStore, this.getDBObjet);
       //用注册到vue上的方法创建数据库
-      let db = await this.initIndexDB(dbname, version, newStore);
-      console.log(db);
+     // let db = await this.initIndexDB(dbname, version, newStore);
+     // console.log(db);
     }
   }
 };
