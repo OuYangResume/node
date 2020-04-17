@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-01 11:36:08
- * @LastEditTime: 2020-04-03 18:04:33
+ * @LastEditTime: 2020-04-07 10:49:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/App.vue
@@ -11,7 +11,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link>|
       <router-link to="/about">About</router-link>|
-      <router-link to="/test">Test</router-link>
+      <router-link to="/test">Test</router-link> |
+      <router-link to="/insert">Insert</router-link>
     </div>
     <router-view />
   </div>

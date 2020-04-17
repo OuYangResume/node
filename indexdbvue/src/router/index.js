@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-04-01 11:36:08
+ * @LastEditTime: 2020-04-07 10:51:35
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /node/indexdbvue/src/router/index.js
+ */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -22,6 +30,11 @@ const routes = [
     path: '/test',
     name: 'Test',
     component: () => import(/* webpackChunkName: "about" */ '../views/Test.vue')
+  },
+  {
+    path: '/insert',
+    name: 'Insert',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Insert.vue')
   }
 
 ]
