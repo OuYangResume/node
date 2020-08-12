@@ -1,7 +1,7 @@
 
 
 import { version } from '../package.json';
-class jstsMap {
+class Test {
     constructor(options = {}) {
         this.name = options.name || 'oouyang';
         this.version = version;
@@ -31,6 +31,6 @@ class jstsMap {
     }
 }
 
-export { jstsMap }
+export { Test }
 
-export default jstsMap 
+export default Test 

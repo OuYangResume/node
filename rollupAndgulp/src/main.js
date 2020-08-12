@@ -1,8 +1,6 @@
-import { jstsMap } from "./jstsMap.js"
+import { Test } from "./test.js"
+import { JstsMap } from "./jsts/jstsMap"
+
+export { Test, JstsMap }
 
 
-export { jstsMap }
-
-export default function (name) {
-    console.log(name)
-};

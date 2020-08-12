@@ -1,1 +1,122 @@
-!function(e,n){"object"==typeof exports&&"undefined"!=typeof module?n(exports):"function"==typeof define&&define.amd?define(["exports"],n):n((e="undefined"!=typeof globalThis?globalThis:e||self).oouyang={})}(this,(function(e){"use strict";var n=function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")};function t(e,n){for(var t=0;t<n.length;t++){var o=n[t];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}var o=function(e,n,o){return n&&t(e.prototype,n),o&&t(e,o),e},i=function(){function e(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{};n(this,e),this.name=t.name||"oouyang",this.version="1.0.0"}return o(e,[{key:"getName",value:function(){return this.name}},{key:"setName",value:function(e){this.name=e}},{key:"getVersion",value:function(){return this.version}}]),e}();e.default=function(e){console.log(e)},e.jstsMap=i,Object.defineProperty(e,"__esModule",{value:!0})}));
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.oouyang = {}));
+}(this, (function (exports) { 'use strict';
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  var classCallCheck = _classCallCheck;
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  var createClass = _createClass;
+
+  var version = "1.0.0";
+
+  var Test = /*#__PURE__*/function () {
+    function Test() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      classCallCheck(this, Test);
+
+      this.name = options.name || 'oouyang';
+      this.version = version;
+    }
+    /**
+     * 获取jstsMap的名称
+     * @return name
+     */
+
+
+    createClass(Test, [{
+      key: "getName",
+      value: function getName() {
+        return this.name;
+      }
+      /**
+       * 设置jstsMap的名称
+       * @param {String} name 
+       */
+
+    }, {
+      key: "setName",
+      value: function setName(name) {
+        this.name = name;
+      }
+      /**
+       * 获取当前版本号
+       */
+
+    }, {
+      key: "getVersion",
+      value: function getVersion() {
+        return this.version;
+      }
+    }]);
+
+    return Test;
+  }();
+
+  var JstsMap = /*#__PURE__*/function () {
+    function JstsMap() {
+
+      classCallCheck(this, JstsMap);
+
+      this._initJstsObject();
+    }
+    /**
+     * 初始化Jsts对象
+     */
+
+
+    createClass(JstsMap, [{
+      key: "_initJstsObject",
+      value: function _initJstsObject() {
+        // const jsts = require('jsts')
+        debugger;
+        this.geoReader = new jsts.io.GeoJSONReader(), this.geoWriter = new jsts.io.GeoJSONWriter();
+      }
+      /**
+       * 两个geometry相交
+       * @param {Geometry} geo1 
+       * @param {Geometry} geo2 
+       * @returns Polygon
+       */
+
+    }, {
+      key: "intersection",
+      value: function intersection(geo1, geo2) {
+        var intersectionGeometry = this.geoReader.read(geo1).intersection(this.geoReader.read(geo2));
+        var intersectionPolygon = this.geoWriter.write(intersectionGeometry);
+        return intersectionPolygon;
+      }
+    }]);
+
+    return JstsMap;
+  }();
+
+  exports.JstsMap = JstsMap;
+  exports.Test = Test;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

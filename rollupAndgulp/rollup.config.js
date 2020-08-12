@@ -1,4 +1,6 @@
+// 帮助寻找node_modules里的包
 import resolve from 'rollup-plugin-node-resolve';
+//将非ES6语法的包转为ES6可用
 import commonjs from 'rollup-plugin-commonjs';
 import babel from "rollup-plugin-babel";
 import json from 'rollup-plugin-json';
@@ -18,13 +20,17 @@ export default [
         ],
         plugins: [
             json(),
-            resolve(),  // 这样 Rollup 能找到 `ms`
-            commonjs(), // 这样 Rollup 能转换 `ms` 为一个ES模块
+            resolve({
+                module: true,
+                jsnext: true,
+                main: true
+            }),
+            commonjs(),
             babel({
-                exclude: 'node_modules/**', // 防止打包node_modules下的文件
+               // exclude: ['node_modules/**'], // 防止打包node_modules下的文件
                 runtimeHelpers: true,       // 使plugin-transform-runtime生效
             }),
-            !isDev ? terser() : []
+            //isDev ? terser() : []
         ]
     }
 ];
