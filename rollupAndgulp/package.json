@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c --environment:production",
-    "dev": "rollup -c -w"
+    "dev": "rollup -c -w",
+    "jsdoc":"./node_modules/.bin/jsdoc  -c jsdoc.json"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "@babel/core": "^7.11.1",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
+    "jsdoc": "^3.6.5",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",

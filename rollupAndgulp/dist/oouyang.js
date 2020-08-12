@@ -89,7 +89,7 @@ var JstsMap = /*#__PURE__*/function () {
       this.geoReader = new jsts.io.GeoJSONReader(), this.geoWriter = new jsts.io.GeoJSONWriter();
     }
     /**
-     * 求geometry的面积,当geo不为Polygon,area为0
+     * @desc 求geometry的面积,当geo不为Polygon,area为0
      * @param {*} geo 
      * @returns Number
      */

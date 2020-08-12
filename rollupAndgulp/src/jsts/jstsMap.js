@@ -15,7 +15,7 @@ class JstsMap {
     }
 
     /**
-     * 求geometry的面积,当geo不为Polygon,area为0
+     * @desc 求geometry的面积,当geo不为Polygon,area为0
      * @param {*} geo 
      * @returns Number
      */
