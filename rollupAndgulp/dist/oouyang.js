@@ -108,4 +108,11 @@ var JstsMap = /*#__PURE__*/function () {
   return JstsMap;
 }();
 
+var index = 42;
+
+function main () {
+  console.log('the answer is ' + index);
+}
+
+export default main;
 export { JstsMap, Test };

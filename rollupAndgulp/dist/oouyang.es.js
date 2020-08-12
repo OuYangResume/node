@@ -114,8 +114,15 @@
     return JstsMap;
   }();
 
+  var index = 42;
+
+  function main () {
+    console.log('the answer is ' + index);
+  }
+
   exports.JstsMap = JstsMap;
   exports.Test = Test;
+  exports.default = main;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
