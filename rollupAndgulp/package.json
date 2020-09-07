@@ -1,0 +1,30 @@
+{
+  "name": "rollupandgulp",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c --environment:production",
+    "dev": "rollup -c -w",
+    "jsdoc":"./node_modules/.bin/jsdoc  -c jsdoc.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "main": "dist/oouyang.js",
+  "module": "dist/oouyang.es.js",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "jsdoc": "^3.6.5",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^7.0.0"
+  },
+  "dependencies": {
+    "jsts": "^2.5.0",
+    "the-answer": "^1.0.0"
+  }
+}

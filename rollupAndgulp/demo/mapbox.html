@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Add a GeoJSON polygon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/jsts@2.3.0/dist/jsts.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+</body>
+<!-- <script src="../dist/oouyang.es.js"></script> -->
+<script type="module">
+    import * as oouyang from '../dist/oouyang.js'
+    mapboxgl.accessToken = 'pk.eyJ1Ijoib3V5YW5nYm8iLCJhIjoiY2pjMWg4aTlsMDI5aDJ3bno4cmNxMzF6NSJ9.WMvxZlMQXZp8nY6slMe1nA';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [114.1906020202922, 22.678757739490692],
+        zoom: 10
+    });
+
+    map.on('load', () => {
+        map.addSource('maine', {
+            'type': 'geojson',
+            'data': {
+                features: [],
+                type: "FeatureCollection",
+            }
+        });
+        map.addLayer({
+            'id': 'maine',
+            'type': 'fill',
+            'source': 'maine',
+            'layout': {},
+            'paint': {
+                'fill-color': '#088',
+                'fill-opacity': 0.2
+            }
+        });
+
+        map.addSource('result', {
+            'type': 'geojson',
+            'data': {
+                features: [],
+                type: "FeatureCollection",
+            }
+        });
+        map.addLayer({
+            'id': 'result',
+            'type': 'fill',
+            'source': 'result',
+            'layout': {},
+            'paint': {
+                'fill-color': '#000',
+                'fill-opacity': 1
+            }
+        });
+
+        // drawIntersectionLayer()
+        //drawsymDifferenceLayer()
+        drawBuffLayer()
+    });
+
+    function getAreaInfoData(areacode) {
+        let formData = new FormData()
+        formData.append("token", "3086dae859bb41a4ab8855e827ed0747");
+        formData.append("paramCode", "KJ5006");
+        formData.append("areacode", areacode);
+        return axios({
+            method: 'post',
+            url: 'http://58.250.156.18:8088/ksj_api/common_api/getKjQuery',
+            data: formData
+        }).then(res => {
+            return res.data.data.data
+        })
+    }
+
+
+    let jstsObject = new oouyang.JstsMap()
+
+    function drawBuffLayer() {
+        let point = { "type": "Point", "coordinates": [113.9354063538181, 22.552726238763096] }
+        let polygon = {
+            type: 'Polygon',
+            coordinates: [[[113.82627784115438, 22.58135677104283], [114.14917505583924, 22.58135677104283], [114.14917505583924, 22.560988119017754], [113.82627784115438, 22.560988119017754], [113.82627784115438, 22.58135677104283]]]
+
+        }
+        let intersectiongeo = jstsObject.buffer(polygon, 0.01)
+
+        map.getSource('maine').setData({
+            type: "FeatureCollection",
+            features: [
+                {
+                    geometry: intersectiongeo,
+                    properties: {},
+                    type: "Feature"
+                },
+            ],
+        })
+    }
+
+    async function drawIntersectionLayer() {
+        let areaInfoList = await getAreaInfoData('4403');
+        let nanshanGeo = areaInfoList[2].areainfo;
+        let bboxFeature = {
+            geometry: {
+                type: 'Polygon',
+                coordinates: [[[113.82627784115438, 22.58135677104283], [114.14917505583924, 22.58135677104283], [114.14917505583924, 22.560988119017754], [113.82627784115438, 22.560988119017754], [113.82627784115438, 22.58135677104283]]]
+
+            },
+            properties: {},
+            type: "Feature"
+        }
+        map.getSource('maine').setData({
+            type: "FeatureCollection",
+            features: [
+                {
+                    geometry: nanshanGeo,
+                    properties: {},
+                    type: "Feature"
+                },
+                bboxFeature
+            ],
+        })
+        let intersectiongeo = jstsObject.union(bboxFeature.geometry, nanshanGeo)
+
+        map.getSource('result').setData({
+            type: "FeatureCollection",
+            features: [
+                {
+                    geometry: intersectiongeo,
+                    properties: {},
+                    type: "Feature"
+                },
+            ],
+        })
+    }
+
+    async function drawsymDifferenceLayer() {
+        let areaInfoList = await getAreaInfoData('4403');
+        let nanshanGeo = areaInfoList[2].areainfo;
+        let bboxFeature = {
+            geometry: { "type": "Polygon", "coordinates": [[[113.462389, 23.1134227], [114.9148158, 23.1134227], [114.9148158, 22.1483109], [113.462389, 22.1483109], [113.462389, 23.1134227]]] },
+            properties: {},
+            type: "Feature"
+        }
+        map.getSource('maine').setData({
+            type: "FeatureCollection",
+            features: [
+                {
+                    geometry: nanshanGeo,
+                    properties: {},
+                    type: "Feature"
+                },
+                bboxFeature
+            ],
+        })
+        let intersectiongeo = jstsObject.getCentroid(nanshanGeo)
+
+        map.getSource('result').setData({
+            type: "FeatureCollection",
+            features: [
+                {
+                    geometry: intersectiongeo,
+                    properties: {},
+                    type: "Feature"
+                },
+            ],
+        })
+    }
+</script>
+
+</html>
