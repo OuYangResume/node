@@ -16,6 +16,7 @@
     * [async](diary/async.md)
     * [class](diary/class.md)
     * [Web Worker](diary/WebWorker.md)
+    * [geojson](diary/Geojson类似实例.md)
 
 -----
 * [Last part without title](part3/title.md)
