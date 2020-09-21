@@ -24,6 +24,6 @@ new Vue({
   store,
   render: h => h(App),
   mounted(){
-    Vue.use(indexDB)
+    //Vue.use(indexDB)
   },
 }).$mount('#app')
