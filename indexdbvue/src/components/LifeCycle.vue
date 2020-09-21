@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-25 14:40:47
- * @LastEditTime: 2020-05-25 18:10:43
+ * @LastEditTime: 2020-09-20 09:32:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/components/LifeCycle.vue
 --> 
 <template>
   <div>
+    {{foo}}   
     {{propsName}}
     {{dataName}}
     {{computedName}}
@@ -18,25 +19,25 @@
 export default {
   data() {
     return {
-      dataName: "data---oouyang"
+      dataName: "data---oouyang",
     };
   },
+  inject: ['foo'],
   props: ["propsName"],
   computed: {
     computedName() {
       return "computed---oouyang";
-    }
+    },
   },
-  methods:{
-      testAlert(){
-          alert(1)
-      }
+  methods: {
+    testAlert() {
+      alert(1);
+    },
   },
   beforeCreate() {
-      
     console.log("周期名字:" + "beforeCreate");
     //全部获取不到
-   // this.testAlert()
+    // this.testAlert()
     //   console.log('data:'+this.dataName)
     //   console.log('props:'+this.propsName)
     //   console.log('computed:'+this.computedName)
@@ -44,11 +45,11 @@ export default {
   },
   created() {
     console.log("周期名字:" + "created");
-    this.testAlert()
+    this.testAlert();
     console.log("data:" + this.$data);
     console.log("props:" + this.propsName);
     console.log("computed:" + this.computedName);
-     console.log('$el:'+this.$el)
-  }
+    console.log("$el:" + this.$el);
+  },
 };
 </script>

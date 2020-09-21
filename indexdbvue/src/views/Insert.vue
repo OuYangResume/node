@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-07 10:51:47
- * @LastEditTime: 2020-05-25 14:52:42
+ * @LastEditTime: 2020-09-20 09:24:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/indexdbvue/src/views/Insert.vue
@@ -18,11 +18,14 @@ import LifeCycle from "@/components/LifeCycle.vue";
 export default {
   data() {
     return {
-      propsName: "props----oouynag"
+      propsName: "props----oouynag",
     };
   },
+  provide: {
+    foo: "bar",
+  },
   components: {
-    LifeCycle
-  }
+    LifeCycle,
+  },
 };
 </script>
