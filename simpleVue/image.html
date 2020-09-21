@@ -33,13 +33,25 @@
     <div id="result"></div>
 </body>
 <script>
-    let w = new Worker("./workers.js");
-    w.onmessage =
-        function (event) {
-            var img = document.createElement("img");
-            img.src = window.URL.createObjectURL(event.data);
-            document.querySelector('#result').appendChild(img);
-        };
+    // let w = new Worker("./workers.js");
+    // w.onmessage =
+    //     function (event) {
+    //         var img = document.createElement("img");
+    //         img.src = window.URL.createObjectURL(event.data);
+    //         document.querySelector('#result').appendChild(img);
+    //     };
+
+
+
+    function Person() {
+
+    }
+    Person.prototype.name = 'Kevin';
+    debugger
+    var person = new Person();
+    var person1 = new Person();
+    console.log(person.name) // Kevin
+    console.log(person1.name) // Kevin
 </script>
 
 </html>
