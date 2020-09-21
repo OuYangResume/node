@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-09-21 20:00:27
+ * @LastEditTime: 2020-09-21 22:03:09
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /node/gitbook/SUMMARY.md
+-->
 # Summary
 
 * [Introduction](README.md)
@@ -17,6 +25,8 @@
     * [class](diary/class.md)
     * [Web Worker](diary/WebWorker.md)
     * [geojson](diary/Geojson类似实例.md)
+    * [String](diary/内置对象String方法.md)
+    * [Array](diary/内置对象Array方法.md)
 
 -----
 * [Last part without title](part3/title.md)
