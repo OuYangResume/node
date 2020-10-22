@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-10-21 21:10:25
- * @LastEditTime: 2020-10-21 23:05:22
+ * @LastEditTime: 2020-10-22 22:54:47
  * @LastEditors: Please set LastEditors
  * @Description: 接口
  * @FilePath: /node/typescriptdemo/typescript/interface.ts
  */
-//通用的类型集合 【类型别名】可以定义基础类型
+//通用的类型集合 与【类型别名】可以定义基础类型
+//接口类型编译并不会成js代码，只是在ts做校验的功能
 interface Person {
   //readonly address: string;//只读属性
   name: string;
@@ -47,3 +48,6 @@ class IUser implements Person {
     return "";
   }
 }
+
+//接口继承--拥有子类所有方法
+interface teacher extends Person {}
