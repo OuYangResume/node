@@ -1,64 +1,65 @@
 /*
  * @Author: your name
- * @Date: 2019-02-15 09:33:40
- * @LastEditTime: 2020-10-20 15:18:19
+ * @Date: 2020-10-23 20:49:06
+ * @LastEditTime: 2020-10-23 21:55:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /node/typescriptdemo/typescript/class.ts
  */
-/**
- * 接口与类之
- * 1.接口可以继承接口
- * 2.类可以实现多个接口
- * 3.接口也可以继承类
- */
-//报警的接口---公共功能
-interface Alarm {
-  alert();
-}
-//门---父类
-class Door {}
-//防盗门----继承父类并实现接口
-class SecurityDoor extends Door implements Alarm {
-  alert() {
-    console.log("SecurityDoor alert");
-  }
-}
-//开灯的接口
-interface Light {
-  lightOn(): void;
-
-  lightOff(): void;
-  ab(a: number, b: number): number;
-}
-//车----实现多个接口
-class Car implements Alarm, Light {
-  alert() {
-    console.log("Car alert");
-  }
-  lightOn() {}
-  lightOff() {}
-  ab(a: number, b: number) {
-    return a * b;
-  }
-}
 
 /**
- * 范型
- * 参数类型与返回值类型是相同的
+ * //类
+ * 类的访问属性 public private protected
+ * public 允许到类的内外被调用--默认值
+ * private 只允许类的内部被调用
+ * protected 允许在类的内部和继承的子类调用
  */
-function identity<T>(arg: T): T {
-  return arg;
+class Point {
+  name = "point";
+  getName() {
+    return this.name;
+  }
 }
 
-//范型类
-class GenericNumber<T> {
-  zeroValue: T;
-  add: (x: T, y: T) => T;
+//类的继承
+class Geomentry extends Point {
+  constructor() {
+    super();
+  }
+  //对父类的属性重写
+  name = "geomentry";
+  getGeoName() {
+    return this.name;
+  }
+  //对父类的方法重写
+  //super是调用父类的方法
+  getName() {
+    return super.getName() + this.name; //geomentrygeomentry
+  }
 }
 
-let myGenericNumber = new GenericNumber<number>();
-myGenericNumber.zeroValue = 0;
-myGenericNumber.add = function (x, y) {
-  return x + y;
-};
+let point = new Point();
+let geo = new Geomentry();
+console.log(point.getName());
+console.log(geo.getGeoName());
+console.log(geo.getName());
+
+//constructor构造函数
+class Bbox {
+  //传统写法
+  // public name: string;
+  // constructor(name: string) {
+  //   this.name = name;
+  // }
+  //简化写法
+  constructor(public name: string) {}
+}
+
+class RoundBbox extends Bbox {
+  //子类的构造函数必须调用super()
+  constructor(public age: string, name: string) {
+    super(name);
+  }
+}
+
+let bbox = new Bbox("bbox");
