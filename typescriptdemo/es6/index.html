@@ -1,18 +1,45 @@
+<!--
+ * @Author: your name
+ * @Date: 2019-02-22 12:13:53
+ * @LastEditTime: 2020-10-29 11:50:44
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /node/typescriptdemo/es6/index.html
+-->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
-<script type='module'>
-    import('class.js').then(_=>{
-        console.log('我支持modul');
-        new _.default().sayHi("Jack");
-    })
-</script>
+  </head>
+  <body>
+    <details>
+      <summary>
+        "summary"标签与"details"一起使用，来为它指定一个可见的标题。
+      </summary>
+      标签向用户提供按需查看详细信息的效果。
+      如果需要按需向用户显示内容，简单的做法就是使用此标签。
+      默认情况下，它是收起来的，打开后，它将展开并显示被隐藏的内容。
+    </details>
+    <meter id="home" value="4" min="0" max="10">2 out of 10</meter><br />
+    <meter id="root" value="0.6">60%</meter><br />
+    <input
+      type="range"
+      name="range"
+      min="0"
+      max="100"
+      step="1"
+      value=""
+      onchange="changeValue(event)"
+    />
+    <progress id="file" value="32" max="100">32%</progress>
+  </body>
+  <script type="module">
+    // import("class.js").then((_) => {
+    //   console.log("我支持modul");
+    //   new _.default().sayHi("Jack");
+    // });
+  </script>
 </html>
