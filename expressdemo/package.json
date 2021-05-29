@@ -21,7 +21,7 @@
     "request": "^2.88.2",
     "routermove": "^1.0.4",
     "tile38": "^0.6.7",
-    "ws": "^6.1.3"
+    "ws": "^7.4.6"
   },
   "devDependencies": {},
   "description": ""
