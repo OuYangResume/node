@@ -12,7 +12,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "fullpage.js": "^3.0.4",
+    "fullpage.js": "^4.0.5",
     "html2canvas": "^1.0.0-alpha.12",
     "jspdf": "^1.5.3",
     "vue": "^2.5.2",
